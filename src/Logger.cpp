@@ -4,6 +4,8 @@
 
 #include "liblogger.h"
 
+namespace liblogger {
+
 void Logger(LogType Type, std::string str) {
 	LogManager::Send(Type, str);
 }
@@ -40,4 +42,4 @@ void Logger(const std::string str) {
 	Logger(LOGGER_INFO, str);
 }
 
-
+};

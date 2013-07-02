@@ -3,6 +3,7 @@
 
 #include "liblogger.h"
 
+namespace liblogger {
 
 void LogStderr::GetName(std::string *str) {
 	*str = "Stderr";
@@ -17,4 +18,4 @@ void LogStderr::Log(LogType Type, const std::string str) {
 	fflush(stderr);
 }
 
-
+};

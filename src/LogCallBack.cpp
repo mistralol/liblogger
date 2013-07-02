@@ -3,6 +3,8 @@
 
 #include "liblogger.h"
 
+namespace liblogger {
+
 LogCallBack::LogCallBack( void (*CallBack) (LogType Type, const std::string str) ) {
 	m_CallBack = CallBack;
 }
@@ -19,4 +21,5 @@ void LogCallBack::Log(LogType Type, const std::string str) {
 	m_CallBack(Type, str);
 }
 
+};
 

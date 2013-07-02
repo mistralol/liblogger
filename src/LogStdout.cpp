@@ -3,6 +3,7 @@
 
 #include "liblogger.h"
 
+namespace liblogger {
 
 void LogStdout::GetName(std::string *str) {
 	*str = "Stdout";
@@ -17,4 +18,5 @@ void LogStdout::Log(LogType Type, const std::string str) {
 	fflush(stdout);
 }
 
+};
 

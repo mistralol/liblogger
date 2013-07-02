@@ -1,8 +1,11 @@
 
+#include <stdlib.h>
 #include <sys/types.h>
 #include <unistd.h>
 
 #include "liblogger.h"
+
+namespace liblogger {
 
 std::list<ILogger *> LogManager::m_loggers;
 pthread_mutex_t LogManager::m_mutex;
@@ -104,3 +107,4 @@ void LogManager::SetProcessPrefix(bool value) {
 	m_processprefix = value;
 }
 
+};

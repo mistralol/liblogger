@@ -4,7 +4,7 @@
 
 #include "liblogger.h"
 
-
+namespace liblogger {
 
 void LogSyslog::GetName(std::string *str) {
 	*str = "Syslog";
@@ -33,4 +33,5 @@ void LogSyslog::Log(LogType Type, const std::string str) {
 	}
 }
 
+};
 
