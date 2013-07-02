@@ -1,0 +1,4 @@
+liblogger--
+===========
+
+CPP Logging Library
