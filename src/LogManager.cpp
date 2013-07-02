@@ -38,7 +38,7 @@ void LogManager::Add(ILogger *Log) {
 #endif
 }
 
-void LogManager::Send(LogType Type, std::string str) {
+void LogManager::Send(const LogType Type, std::string str) {
 	Lock();
 	if (m_processprefix) {
 		char buf[32];

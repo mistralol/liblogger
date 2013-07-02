@@ -6,7 +6,7 @@ namespace liblogger {
 		
 			static void Add(ILogger *Log);
 
-			static void Send(LogType Type, std::string str);
+			static void Send(const LogType Type, std::string str);
 
 			static void Remove(ILogger *Log);
 			static void RemoveAll(bool destroy);

@@ -6,7 +6,7 @@
 
 namespace liblogger {
 
-void Logger(LogType Type, std::string str) {
+void Logger(const LogType Type, const std::string &str) {
 	LogManager::Send(Type, str);
 }
 
@@ -38,7 +38,7 @@ void Logger(const char *fmt, ...) {
     va_end(ap);
 }
 
-void Logger(const std::string str) {
+void Logger(const std::string &str) {
 	Logger(LOGGER_INFO, str);
 }
 

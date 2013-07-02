@@ -1,8 +1,5 @@
 
-CPP=g++
-CPPFLAGS+=-Wall -Werror -DDEBUG -D_GNU_SOURCE -ggdb -std=gnu++0x -fPIC
-INCLUDE+=-I../include
-MKDEP=gcc -E -MM
+include ../Makefile.Rules
 
 SRCS= 	Logger.cpp	\
 		LogStdout.cpp \
@@ -13,14 +10,7 @@ SRCS= 	Logger.cpp	\
 
 OBJS=$(SRCS:%.cpp=%.o)
 
-
-all: ../liblogger.a ../liblogger.so
-
-../liblogger.a: $(OBJS) .depend
-	$(AR) cru ../liblogger.a $(OBJS)
-
-../liblogger.so: $(OBJS) .depend
-	$(CPP) -shared -o ../liblogger.so $(OBJS)
+all: $(OBJS) .depend
 
 .cpp.o:
 	$(CPP) $(CPPFLAGS) $(INCLUDE) -c $< -o $@
@@ -34,5 +24,5 @@ endif
 
 clean:
 	$(RM) $(OBJS) .depend
-	$(RM) ../liblogger.a ../liblogger.so
+
 	
