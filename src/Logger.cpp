@@ -4,13 +4,16 @@
 
 #include "liblogger.h"
 
-namespace liblogger {
+namespace liblogger
+{
 
-void Logger(const LogType Type, const std::string &str) {
+void Logger(const LogType Type, const std::string &str)
+{
 	LogManager::Send(Type, str);
 }
 
-void Logger(LogType Type, const char *fmt, ...) {
+void Logger(LogType Type, const char *fmt, ...)
+{
 	char *tmp = 0;
 	
     va_list ap;
@@ -24,7 +27,8 @@ void Logger(LogType Type, const char *fmt, ...) {
     va_end(ap);
 }
 
-void Logger(const char *fmt, ...) {
+void Logger(const char *fmt, ...)
+{
 	char *tmp = 0;
 	
     va_list ap;
@@ -38,8 +42,14 @@ void Logger(const char *fmt, ...) {
     va_end(ap);
 }
 
-void Logger(const std::string &str) {
+void Logger(const std::string &str)
+{
 	Logger(LOGGER_INFO, str);
+}
+
+void LoggerRotate()
+{
+
 }
 
 };

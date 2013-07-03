@@ -8,6 +8,8 @@ namespace liblogger {
 
 			static void Send(const LogType Type, std::string str);
 
+			static void Rotate();
+
 			static void Remove(ILogger *Log);
 			static void RemoveAll(bool destroy);
 		

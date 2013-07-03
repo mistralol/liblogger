@@ -7,6 +7,9 @@ namespace liblogger {
 	extern void Logger(const LogType Type, const char *fmt, ...);
 	extern void Logger(const char *fmt, ...);
 	extern void Logger(const std::string &str);
+
+	/* Ask for log rotation */
+	extern void LoggerRotate();
 };
 
 

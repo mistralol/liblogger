@@ -57,6 +57,14 @@ void LogManager::Send(const LogType Type, std::string str) {
 	Unlock();
 }
 
+void LogManager::Rotate()
+{
+	Lock();
+	for( std::list<ILogger *>::iterator i = m_loggers.begin(); i != m_loggers.end(); i++)
+		(*i)->Rotate();
+	Unlock();
+}
+
 void LogManager::Remove(ILogger *Log) {
 	Lock();
 	m_loggers.remove(Log);
