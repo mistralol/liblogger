@@ -1,6 +1,8 @@
 
-namespace liblogger {
-	class LogManager {
+namespace liblogger 
+{
+	class LogManager 
+	{
 		public:
 			static void Init();
 		

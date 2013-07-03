@@ -4,18 +4,23 @@
 
 #include "liblogger.h"
 
-namespace liblogger {
+namespace liblogger
+{
 
-void LogSyslog::GetName(std::string *str) {
+void LogSyslog::GetName(std::string *str)
+{
 	*str = "Syslog";
 }
 
-void LogSyslog::GetDesc(std::string *str) {
+void LogSyslog::GetDesc(std::string *str)
+{
 	*str = "Logs to Syslog";
 }
 
-void LogSyslog::Log(LogType Type, const std::string str) {
-	switch(Type) {
+void LogSyslog::Log(LogType Type, const std::string str)
+{
+	switch(Type)
+	{
 		case LOGGER_DEBUG:
 			syslog(LOG_DEBUG, "%s", str.c_str());
 			break;

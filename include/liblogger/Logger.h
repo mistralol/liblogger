@@ -1,7 +1,7 @@
 
 
-namespace liblogger {
-
+namespace liblogger
+{
 	/* Global Functions for logging */
 	extern void Logger(const LogType Type, const std::string &str);
 	extern void Logger(const LogType Type, const char *fmt, ...);

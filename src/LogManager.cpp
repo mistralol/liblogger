@@ -13,7 +13,8 @@ bool LogManager::m_locked = false;
 bool LogManager::m_threadprefix = 0;
 bool LogManager::m_processprefix = 0;
 
-void LogManager::Init() {
+void LogManager::Init()
+{
 	pthread_mutexattr_t attr;
 	
 	if (pthread_mutexattr_init(&attr) < 0)
@@ -27,7 +28,8 @@ void LogManager::Init() {
 
 }
 
-void LogManager::Add(ILogger *Log) {
+void LogManager::Add(ILogger *Log)
+{
 	Lock();
 	m_loggers.push_back(Log);
 	Unlock();
@@ -38,15 +40,18 @@ void LogManager::Add(ILogger *Log) {
 #endif
 }
 
-void LogManager::Send(const LogType Type, std::string str) {
+void LogManager::Send(const LogType Type, std::string str)
+{
 	Lock();
-	if (m_processprefix) {
+	if (m_processprefix)
+	{
 		char buf[32];
 		sprintf(buf, "[%d] ", getpid());
 		str = buf + str;
 	}
 	
-	if (m_threadprefix) {
+	if (m_threadprefix)
+	{
 		char buf[32];
 		sprintf(buf, "[%d] ", (int) pthread_self());
 		str = buf + str;
@@ -65,7 +70,8 @@ void LogManager::Rotate()
 	Unlock();
 }
 
-void LogManager::Remove(ILogger *Log) {
+void LogManager::Remove(ILogger *Log)
+{
 	Lock();
 	m_loggers.remove(Log);
 	Unlock();
@@ -76,9 +82,11 @@ void LogManager::Remove(ILogger *Log) {
 #endif
 }
 
-void LogManager::RemoveAll(bool destroy) {
+void LogManager::RemoveAll(bool destroy)
+{
 	Lock();
-	while(m_loggers.empty() == false) {
+	while(m_loggers.empty() == false)
+	{
 		ILogger *p = m_loggers.front();
 		m_loggers.remove(p);
 		if (destroy)
@@ -87,31 +95,37 @@ void LogManager::RemoveAll(bool destroy) {
 	Unlock();
 }
 
-void LogManager::Lock() {
+void LogManager::Lock()
+{
 	if (pthread_mutex_lock(&m_mutex) < 0)
 		abort();
 	m_locked = true;
 }
 
-void LogManager::Unlock() {
+void LogManager::Unlock()
+{
 	m_locked = false;
 	if (pthread_mutex_unlock(&m_mutex) < 0)
 		abort();
 }
 
-bool LogManager::GetThreadPrefix() {
+bool LogManager::GetThreadPrefix()
+{
 	return m_threadprefix;
 }
 
-void LogManager::SetThreadPrefix(bool value) {
+void LogManager::SetThreadPrefix(bool value)
+{
 	m_threadprefix = value;
 }
 		
-bool LogManager::GetProcessPrefix() {
+bool LogManager::GetProcessPrefix()
+{
 	return m_processprefix;
 }
 
-void LogManager::SetProcessPrefix(bool value) {
+void LogManager::SetProcessPrefix(bool value)
+{
 	m_processprefix = value;
 }
 

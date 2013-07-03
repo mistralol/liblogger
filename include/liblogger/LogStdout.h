@@ -1,5 +1,6 @@
 
-namespace liblogger {
+namespace liblogger
+{
 	class LogStdout : public ILogger
 	{
 		public:
