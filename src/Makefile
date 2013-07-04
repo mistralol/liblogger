@@ -10,7 +10,13 @@ SRCS= 	Logger.cpp	\
 
 OBJS=$(SRCS:%.cpp=%.o)
 
-all: $(OBJS) .depend
+all: $(OBJS) ../liblogger.a ../liblogger.so
+
+../liblogger.a: $(OBJS) .depend
+	$(AR) cru ../liblogger.a $(OBJS)
+
+../liblogger.so: $(OBJS) .depend
+	$(CPP) -shared -o ../liblogger.so $(OBJS)
 
 .cpp.o:
 	$(CPP) $(CPPFLAGS) $(INCLUDE) -c $< -o $@
@@ -24,5 +30,6 @@ endif
 
 clean:
 	$(RM) $(OBJS) .depend
+	$(RM) ../liblogger.a ../liblogger.so
 
 	
