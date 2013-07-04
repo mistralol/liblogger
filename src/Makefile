@@ -6,6 +6,7 @@ SRCS= 	Logger.cpp	\
 		LogStderr.cpp \
 		LogSyslog.cpp \
 		LogCallBack.cpp \
+		LogFile.cpp \
 		LogManager.cpp
 
 OBJS=$(SRCS:%.cpp=%.o)

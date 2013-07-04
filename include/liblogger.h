@@ -15,6 +15,7 @@
 #include <liblogger/LogStdout.h>
 #include <liblogger/LogStderr.h>
 #include <liblogger/LogSyslog.h>
+#include <liblogger/LogFile.h>
 #include <liblogger/LogCallBack.h>
 
 
