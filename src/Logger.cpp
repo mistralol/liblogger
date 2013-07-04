@@ -49,7 +49,7 @@ void Logger(const std::string &str)
 
 void LoggerRotate()
 {
-	LogManager.Rotate();
+	LogManager::Rotate();
 }
 
 };

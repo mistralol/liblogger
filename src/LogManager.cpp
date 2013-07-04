@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <sstream>
 
 #include "liblogger.h"
 
@@ -10,8 +11,8 @@ namespace liblogger {
 std::list<ILogger *> LogManager::m_loggers;
 pthread_mutex_t LogManager::m_mutex;
 bool LogManager::m_locked = false;
-bool LogManager::m_threadprefix = 0;
-bool LogManager::m_processprefix = 0;
+bool LogManager::m_threadprefix = true;
+bool LogManager::m_processprefix = true;
 
 void LogManager::Init()
 {
@@ -40,25 +41,19 @@ void LogManager::Add(ILogger *Log)
 #endif
 }
 
-void LogManager::Send(const LogType Type, std::string str)
+void LogManager::Send(const LogType Type, const std::string &str)
 {
+	std::stringstream ss;
+
 	Lock();
 	if (m_processprefix)
-	{
-		char buf[32];
-		sprintf(buf, "[%d] ", getpid());
-		str = buf + str;
-	}
-	
+		ss << "[" << getpid() << "] ";
+
 	if (m_threadprefix)
-	{
-		char buf[32];
-		sprintf(buf, "[%d] ", (int) pthread_self());
-		str = buf + str;
-	}
+		ss << "[" << (int) pthread_self() << "] ";
 	
 	for( std::list<ILogger *>::iterator i = m_loggers.begin(); i != m_loggers.end(); i++)
-		(*i)->Log(Type, str);
+		(*i)->Log(Type, ss.str());
 	Unlock();
 }
 
@@ -109,24 +104,24 @@ void LogManager::Unlock()
 		abort();
 }
 
-bool LogManager::GetThreadPrefix()
+bool LogManager::GetThreadPrefixEnabled()
 {
 	return m_threadprefix;
 }
 
-void LogManager::SetThreadPrefix(bool value)
+void LogManager::SetThreadPrefixEnabled(bool bEnabled)
 {
-	m_threadprefix = value;
+	m_threadprefix = bEnabled;
 }
 		
-bool LogManager::GetProcessPrefix()
+bool LogManager::GetProcessPrefixEnabled()
 {
 	return m_processprefix;
 }
 
-void LogManager::SetProcessPrefix(bool value)
+void LogManager::SetProcessPrefixEnabled(bool bEnabled)
 {
-	m_processprefix = value;
+	m_processprefix = bEnabled;
 }
 
 };

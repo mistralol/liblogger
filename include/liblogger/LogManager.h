@@ -8,7 +8,7 @@ namespace liblogger
 		
 			static void Add(ILogger *Log);
 
-			static void Send(const LogType Type, std::string str);
+			static void Send(const LogType Type, const std::string &str);
 
 			static void Rotate();
 
@@ -18,11 +18,11 @@ namespace liblogger
 			static void Lock();
 			static void Unlock();
 
-			static bool GetThreadPrefix();
-			static void SetThreadPrefix(bool value);
+			static bool GetThreadPrefixEnabled();
+			static void SetThreadPrefixEnabled(bool bEnabled);
 		
-			static bool GetProcessPrefix();
-			static void SetProcessPrefix(bool value);
+			static bool GetProcessPrefixEnabled();
+			static void SetProcessPrefixEnabled(bool bEnabled);
 
 		private:
 			static std::list<ILogger *> m_loggers;
