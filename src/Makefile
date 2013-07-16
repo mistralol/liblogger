@@ -8,7 +8,8 @@ SRCS= 	Logger.cpp	\
 		LogCallBack.cpp \
 		LogFile.cpp \
 		LogPipe.cpp \
-		LogManager.cpp
+		LogManager.cpp \
+		LogType.cpp 
 
 OBJS=$(SRCS:%.cpp=%.o)
 

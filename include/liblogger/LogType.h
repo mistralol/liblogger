@@ -12,6 +12,10 @@ namespace liblogger
 		LOGGER_ALERT,
 		LOGGER_EMERG,
 	};
+
+	const std::string LogTypeToStr(LogType Type);
 };
+
+
 
 
