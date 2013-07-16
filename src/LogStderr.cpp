@@ -16,7 +16,7 @@ void LogStderr::GetDesc(std::string *str)
 	*str = "Logs to Stderr";
 }
 
-void LogStderr::Log(LogType Type, const std::string str)
+void LogStderr::Log(const LogType Type, const std::string &str)
 {
 	fprintf(stderr, "%s\n", str.c_str());
 	fflush(stderr);

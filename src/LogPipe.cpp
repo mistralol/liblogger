@@ -28,7 +28,7 @@ void LogPipe::GetDesc(std::string *str)
 	*str = "Logs to a File";
 }
 
-void LogPipe::Log(LogType Type, const std::string str)
+void LogPipe::Log(const LogType Type, const std::string &str)
 {
 	if (m_fp == NULL)
 		return;

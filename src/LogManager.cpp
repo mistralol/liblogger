@@ -11,8 +11,8 @@ namespace liblogger {
 std::list<ILogger *> LogManager::m_loggers;
 pthread_mutex_t LogManager::m_mutex;
 bool LogManager::m_locked = false;
-bool LogManager::m_threadprefix = true;
-bool LogManager::m_processprefix = true;
+bool LogManager::m_threadprefix = false;
+bool LogManager::m_processprefix = false;
 
 void LogManager::Init()
 {
@@ -51,6 +51,8 @@ void LogManager::Send(const LogType Type, const std::string &str)
 
 	if (m_threadprefix)
 		ss << "[" << (int) pthread_self() << "] ";
+
+	ss << str;
 	
 	for( std::list<ILogger *>::iterator i = m_loggers.begin(); i != m_loggers.end(); i++)
 		(*i)->Log(Type, ss.str());

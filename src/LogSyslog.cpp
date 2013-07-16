@@ -17,7 +17,7 @@ void LogSyslog::GetDesc(std::string *str)
 	*str = "Logs to Syslog";
 }
 
-void LogSyslog::Log(LogType Type, const std::string str)
+void LogSyslog::Log(const LogType Type, const std::string &str)
 {
 	switch(Type)
 	{

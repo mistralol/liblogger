@@ -16,7 +16,7 @@ void LogStdout::GetDesc(std::string *str)
 	*str = "Logs to Stdout";
 }
 
-void LogStdout::Log(LogType Type, const std::string str)
+void LogStdout::Log(const LogType Type, const std::string &str)
 {
 	printf("%s\n", str.c_str());
 	fflush(stdout);
