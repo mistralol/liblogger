@@ -1,7 +1,12 @@
 
 include ../Makefile.Rules
 
-SRCS= syslog.cpp
+SRCS= syslog.cpp \
+	stdout.cpp \
+	stderr.cpp \
+	pipe.cpp \
+	callback.cpp \
+	file.cpp
 
 OBJS=$(SRCS:%.cpp=%.exe)
 
