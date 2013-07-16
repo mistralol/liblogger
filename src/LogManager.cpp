@@ -13,6 +13,7 @@ pthread_mutex_t LogManager::m_mutex;
 bool LogManager::m_locked = false;
 bool LogManager::m_threadprefix = false;
 bool LogManager::m_processprefix = false;
+uint64_t LogManager::m_TotalMessages = 0;
 
 void LogManager::Init()
 {
@@ -43,6 +44,7 @@ void LogManager::Add(ILogger *Log)
 
 void LogManager::Send(const LogType Type, const std::string &str)
 {
+	m_TotalMessages++;
 	std::stringstream ss;
 
 	Lock();

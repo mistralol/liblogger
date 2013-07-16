@@ -30,6 +30,8 @@ namespace liblogger
 			static bool m_locked;
 			static bool m_threadprefix;
 			static bool m_processprefix;
+
+			static uint64_t m_TotalMessages;
 	};
 };
 
