@@ -18,18 +18,10 @@ namespace liblogger
 			static void Lock();
 			static void Unlock();
 
-			static bool GetThreadPrefixEnabled();
-			static void SetThreadPrefixEnabled(bool bEnabled);
-		
-			static bool GetProcessPrefixEnabled();
-			static void SetProcessPrefixEnabled(bool bEnabled);
-
 		private:
 			static std::list<ILogger *> m_loggers;
 			static pthread_mutex_t m_mutex;
 			static bool m_locked;
-			static bool m_threadprefix;
-			static bool m_processprefix;
 
 			static uint64_t m_TotalMessages;
 	};
