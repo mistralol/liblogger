@@ -9,7 +9,7 @@ using namespace liblogger;
 int main(int argc, char ** argv)
 {
 	LogManager::Init();
-	LogManager::Add(new LogFile("/dev/self/fd/1"));
+	LogManager::Add(new LogFile("/proc/self/fd/1"));
 
 	examples();
 
