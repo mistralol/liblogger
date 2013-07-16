@@ -8,6 +8,7 @@ namespace liblogger
 	extern void Logger(const char *fmt, ...);
 	extern void Logger(const std::string &str);
 
+	/* Cleaner Aliases for the above */
 	extern void LogDebug(const char *fmt, ...);
 	extern void LogDebug(const std::string &str);
 	extern void LogInfo(const char *fmt, ...);
@@ -24,7 +25,6 @@ namespace liblogger
 	extern void LogAlert(const std::string &str);
 	extern void LogEmergency(const char *fmt, ...);
 	extern void LogEmergency(const std::string &str);
-
 
 	/* Ask for log rotation */
 	extern void LoggerRotate();
