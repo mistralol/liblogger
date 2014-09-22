@@ -18,6 +18,7 @@
 #include <liblogger/LogFile.h>
 #include <liblogger/LogPipe.h>
 #include <liblogger/LogCallBack.h>
+#include <liblogger/LogTail.h>
 
 
 #endif

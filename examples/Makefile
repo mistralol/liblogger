@@ -6,7 +6,8 @@ SRCS= syslog.cpp \
 	stderr.cpp \
 	pipe.cpp \
 	callback.cpp \
-	file.cpp
+	file.cpp \
+	tail.cpp
 
 OBJS=$(SRCS:%.cpp=%.exe)
 
