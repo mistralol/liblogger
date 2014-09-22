@@ -30,6 +30,7 @@ void LogTail::Log(const LogType Type, const std::string &str)
 
 std::string LogTail::GetData()
 {
+	LogManager::Lock();
 	std::list<std::string>::iterator it = m_data.begin();
 	std::stringstream ss;
 	while(it != m_data.end())
@@ -37,6 +38,7 @@ std::string LogTail::GetData()
 		ss << *it << '\n';
 		it++;
 	}
+	LogManager::Unlock();
 	return ss.str();
 }
 
