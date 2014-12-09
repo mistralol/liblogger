@@ -4,8 +4,9 @@ namespace liblogger
 	class LogSyslog : public ILogger
 	{
 		public:
-			LogSyslog() { };
-			virtual ~LogSyslog() { };
+			LogSyslog();
+			LogSyslog(int facility);
+			virtual ~LogSyslog();
 		
 			void GetName(std::string *str);
 			void GetDesc(std::string *str);

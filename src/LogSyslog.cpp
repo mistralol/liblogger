@@ -7,6 +7,21 @@
 namespace liblogger
 {
 
+LogSyslog::LogSyslog()
+{
+	openlog(NULL, 0, 0);
+}
+
+LogSyslog::LogSyslog(int facility)
+{
+	openlog(NULL, 0, facility);
+}
+
+LogSyslog::~LogSyslog()
+{
+	closelog();
+}
+
 void LogSyslog::GetName(std::string *str)
 {
 	*str = "Syslog";
