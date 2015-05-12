@@ -14,3 +14,16 @@
 *~
 .depend
 *.exe
+aclocal.m4
+autom4te.cache
+config
+configure
+m4
+Makefile
+Makefile.in
+config.log
+config.status
+libtool
+.deps
+.libs
+
