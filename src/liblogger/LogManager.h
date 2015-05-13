@@ -14,6 +14,8 @@ namespace liblogger
 
 			static void Remove(ILogger *Log);
 			static void RemoveAll(bool destroy);
+
+			static std::string GetVersion();
 		
 			static void Lock();
 			static void Unlock();

@@ -130,6 +130,11 @@ void LogManager::RemoveAll(bool destroy)
 	Unlock();
 }
 
+std::string LogManager::GetVersion()
+{
+	return PACKAGE_VERSION;
+}
+
 void LogManager::Lock()
 {
 	if (pthread_mutex_lock(&m_mutex) < 0)
