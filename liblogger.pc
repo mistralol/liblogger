@@ -1,0 +1,12 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: liblogger
+Description: Another C++ logging library
+URL: http://github.com/mistralol/liblogger
+Version: 1.0.0
+Requires: <dependencies>
+Libs: -L${libdir} -lliblogger
+Cflags: -I${includedir}

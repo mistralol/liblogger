@@ -4,6 +4,7 @@ AC_INIT(liblogger, 1.0.0, james@stev.org)
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_SRCDIR([src/LogManager.cpp])
 AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_FILES([liblogger.pc])
 
 LT_INIT
 AM_INIT_AUTOMAKE([foreign])

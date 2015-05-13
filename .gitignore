@@ -24,4 +24,8 @@ config.status
 libtool
 .deps
 .libs
+debian/liblogger1-dev/
+debian/liblogger1/
+debian/tmp/
+
 
