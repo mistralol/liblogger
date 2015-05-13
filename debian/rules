@@ -19,6 +19,7 @@ include /usr/share/dpkg/default.mk
 
 # main packaging script based on dh7 syntax
 %:
+	./autogen.sh
 	dh $@  --with autotools-dev
 
 # debmake generated override targets
