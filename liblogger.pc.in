@@ -7,6 +7,6 @@ Name: liblogger
 Description: Another C++ logging library
 URL: http://github.com/mistralol/liblogger
 Version: @VERSION@
-Requires: <dependencies>
-Libs: -L${libdir} -lliblogger
+Requires:
+Libs: -L${libdir} -llogger
 Cflags: -I${includedir}
