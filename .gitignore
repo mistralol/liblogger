@@ -27,5 +27,5 @@ libtool
 debian/liblogger1-dev/
 debian/liblogger1/
 debian/tmp/
-
+liblogger.pc
 
