@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdint.h>
+#include <unistd.h>
+
 #include <string>
 #include <list>
 

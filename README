@@ -3,5 +3,35 @@ liblogger
 
 CPP Logging Library
 
+Usage is simple.
+
+#include <liblogger.h>
+
+using namespace liblogger;
+
+int main(int argc, char ** argv)
+{
+        LogManager::Init();
+        LogManager::Add(new LogSyslog());
+	//LogManager::Add(new LogCallBack(Function));
+	//LogManager::Add(new LogFile("mylogfile.log"));
+	//LogManager::Add(new LogPipe("cat"));
+	//LogManager::Add(new LogStderr());
+	//LogManager::Add(new LogStdout());
+	//LogManager::Add(new LogTail(500));
+
+        LogDebug("Debug Logging #1");
+	LogInfo("Info Logging #1");
+	LogNotice("Notice Logging #1");
+	LogWarning("Warning!!!!!!");
+	LogError("This is an Error");
+	LogCritical("Something Critical happened");
+	LogAlert("Alert Alert");
+	LogEmergency("Emergency!");
+
+        LogManager::RemoveAll(true);
+        return 0;
+}
+
 
 

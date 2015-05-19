@@ -13,13 +13,6 @@ namespace liblogger
 
 			virtual void Rotate() { };
 			virtual void Log(const LogType Type, const std::string &str) { };
-
-			virtual bool AddSeq() { return true; }
-			virtual bool AddDate() { return true; }
-			virtual bool AddProcessName() { return true; }
-			virtual bool AddProcessID() { return true; }
-			virtual bool AddThreadID() { return true; }
-			virtual bool AddSeperator() { return true; }
 	};
 };
 

@@ -9,21 +9,21 @@ const std::string LogTypeToStr(LogType Type)
 	switch(Type)
 	{
 		case LOGGER_DEBUG:
-			return "DEBUG";
+			return "DEBG";
 		case LOGGER_INFO:
 			return "INFO";
 		case LOGGER_NOTICE:
-			return "NOTICE";
+			return "NOTE";
 		case LOGGER_WARNING:
-			return "WARNING";
+			return "WARN";
 		case LOGGER_ERR:
-			return "ERROR";
+			return "ERRO";
 		case LOGGER_CRIT:
-			return "CRITICAL";
+			return "CRIT";
 		case LOGGER_ALERT:
-			return "ALERT";
+			return "ALER";
 		case LOGGER_EMERG:
-			return "EMERGENCY";
+			return "EMER";
 		default:
 			abort();
 			break;
