@@ -28,4 +28,13 @@ debian/liblogger1-dev/
 debian/liblogger1/
 debian/tmp/
 liblogger.pc
+*.log
+*.trs
+tests/callback
+tests/file
+tests/pipe
+tests/stderr
+tests/stdout
+tests/syslog
+tests/tail
 
