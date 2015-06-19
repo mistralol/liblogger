@@ -1,4 +1,5 @@
 
+AM_CPPFLAGS=-I../src/
 LDADD=../src/.libs/liblogger.a -lpthread
 
 TESTS=callback \
