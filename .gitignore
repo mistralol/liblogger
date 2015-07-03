@@ -35,6 +35,7 @@ tests/file
 tests/pipe
 tests/stderr
 tests/stdout
+tests/stdoutcolor
 tests/syslog
 tests/tail
 

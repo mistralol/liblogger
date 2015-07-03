@@ -11,6 +11,7 @@ liblogger_la_SOURCES=Logger.cpp LogManager.cpp LogType.cpp \
 		LogPipe.cpp \
 		LogStderr.cpp \
 		LogStdout.cpp \
+		LogStdoutColor.cpp \
 		LogSyslog.cpp \
 		LogTail.cpp 
 
@@ -26,6 +27,7 @@ otherinclude_HEADERS=liblogger/LogManager.h liblogger/ILogger.h liblogger/LogTyp
 	liblogger/LogPipe.h \
 	liblogger/LogStderr.h \
 	liblogger/LogStdout.h \
+	liblogger/LogStdoutColor.h \
 	liblogger/LogSyslog.h \
 	liblogger/LogTail.h  
 

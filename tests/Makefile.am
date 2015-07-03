@@ -7,6 +7,7 @@ TESTS=callback \
 	pipe \
 	stderr \
 	stdout \
+	stdoutcolor \
 	syslog \
 	tail
 
@@ -15,6 +16,7 @@ check_PROGRAMS=callback \
 	pipe \
 	stderr \
 	stdout \
+	stdoutcolor \
 	syslog \
 	tail
 	
@@ -23,6 +25,7 @@ file_SOURCES=file.cpp
 pipe_SOURCES=pipe.cpp
 stderr_SOURCES=stderr.cpp
 stdout_SOURCES=stdout.cpp
+stdoutcolor_SOURCES=stdoutcolor.cpp
 syslog_SOURCES=syslog.cpp
 tail_SOURCES=tail.cpp
 
