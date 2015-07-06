@@ -3,7 +3,7 @@ namespace liblogger
 {
 	enum LogType
 	{
-		LOGGER_DEBUG,
+		LOGGER_DEBUG = 0,
 		LOGGER_INFO,
 		LOGGER_NOTICE,
 		LOGGER_WARNING,
