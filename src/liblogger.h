@@ -10,6 +10,7 @@
 
 #include <string>
 #include <list>
+#include <map>
 
 #include <liblogger/LogType.h>
 #include <liblogger/ILogger.h>
@@ -23,6 +24,7 @@
 #include <liblogger/LogPipe.h>
 #include <liblogger/LogCallBack.h>
 #include <liblogger/LogTail.h>
+#include <liblogger/LogTailIdx.h>
 
 
 #endif

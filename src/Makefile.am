@@ -13,7 +13,8 @@ liblogger_la_SOURCES=Logger.cpp LogManager.cpp LogType.cpp \
 		LogStdout.cpp \
 		LogStdoutColor.cpp \
 		LogSyslog.cpp \
-		LogTail.cpp 
+		LogTail.cpp  \
+		LogTailIdx.cpp
 
 
 include_HEADERS=liblogger.h
@@ -29,6 +30,7 @@ otherinclude_HEADERS=liblogger/LogManager.h liblogger/ILogger.h liblogger/LogTyp
 	liblogger/LogStdout.h \
 	liblogger/LogStdoutColor.h \
 	liblogger/LogSyslog.h \
-	liblogger/LogTail.h  
+	liblogger/LogTail.h \
+	liblogger/LogTailIdx.h
 
 
