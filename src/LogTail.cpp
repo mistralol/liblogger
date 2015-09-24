@@ -42,5 +42,13 @@ std::string LogTail::GetData()
 	return ss.str();
 }
 
+std::list<std::string> LogTail::GetList()
+{
+	LogManager::Lock();
+	std::list<std::string> lst = m_data;
+	LogManager::Unlock();
+	return lst;
+}
+
 };
 
