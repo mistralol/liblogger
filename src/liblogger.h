@@ -11,6 +11,7 @@
 #include <string>
 #include <list>
 #include <map>
+#include <memory>
 
 #include <liblogger/LogType.h>
 #include <liblogger/ILogger.h>

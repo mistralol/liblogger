@@ -38,4 +38,5 @@ tests/stdout
 tests/stdoutcolor
 tests/syslog
 tests/tail
+tests/remove
 

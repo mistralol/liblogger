@@ -11,6 +11,8 @@ AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_LIBTOOL
 
+AX_CXX_COMPILE_STDCXX_11(noext, optional)
+
 AC_SUBST([AM_CXXFLAGS], ["-Wall -Werror"])
 
 AC_OUTPUT(Makefile src/Makefile tests/Makefile)

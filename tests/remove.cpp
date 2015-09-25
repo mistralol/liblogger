@@ -8,11 +8,12 @@ using namespace liblogger;
 
 int main(int argc, char ** argv)
 {
-	LogManager::Add(new LogStdout());
+	std::shared_ptr<LogPipe> pipe(new LogPipe("cat"));
+	LogManager::Add(pipe);
 
 	examples();
 
-	LogManager::RemoveAll();
+	LogManager::Remove(pipe);
 	return 0;
 }
 

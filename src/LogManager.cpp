@@ -8,23 +8,11 @@
 
 namespace liblogger {
 
-std::list<ILogger *> LogManager::m_loggers;
+std::list<std::shared_ptr<ILogger> > LogManager::m_loggers;
 pthread_mutex_t LogManager::m_mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
 bool LogManager::m_locked = false;
 uint64_t LogManager::m_TotalMessages = 0;
 LogType LogManager::m_Type = LOGGER_DEBUG;
-
-void LogManager::Add(ILogger *Log)
-{
-	Lock();
-	m_loggers.push_back(Log);
-	Unlock();
-#ifdef DEBUG
-	std::string str;
-	Log->GetName(&str);
-	Logger(LOGGER_DEBUG, "Added Logger: %s", str.c_str());
-#endif
-}
 
 void LogManager::Send(const LogType Type, const std::string &str)
 {
@@ -37,7 +25,7 @@ void LogManager::Send(const LogType Type, const std::string &str)
 	}
 	
 	m_TotalMessages++;	
-	for( std::list<ILogger *>::iterator i = m_loggers.begin(); i != m_loggers.end(); i++)
+	for( std::list<std::shared_ptr<ILogger> >::iterator i = m_loggers.begin(); i != m_loggers.end(); i++)
 	{
 		(*i)->Log(Type, str);
 	}
@@ -47,15 +35,30 @@ void LogManager::Send(const LogType Type, const std::string &str)
 void LogManager::Rotate()
 {
 	Lock();
-	for( std::list<ILogger *>::iterator i = m_loggers.begin(); i != m_loggers.end(); i++)
-		(*i)->Rotate();
+	for( std::list<std::shared_ptr<ILogger> >::iterator it = m_loggers.begin(); it != m_loggers.end(); it++)
+		(*it)->Rotate();
 	Unlock();
 }
 
-void LogManager::Remove(ILogger *Log)
+void LogManager::Add(std::shared_ptr<ILogger> Log)
 {
 	Lock();
+	m_loggers.push_back(Log);
+	Unlock();
+#ifdef DEBUG
+	std::string str;
+	Log->GetName(&str);
+	Logger(LOGGER_DEBUG, "Added Logger: %s", str.c_str());
+#endif
+}
+
+void LogManager::Remove(std::shared_ptr<ILogger> Log)
+{
+	Lock();
+	size_t size = m_loggers.size();
 	m_loggers.remove(Log);
+	if (size == m_loggers.size())
+		abort();
 	Unlock();
 #ifdef DEBUG
 	std::string str;
@@ -64,15 +67,19 @@ void LogManager::Remove(ILogger *Log)
 #endif
 }
 
-void LogManager::RemoveAll(bool destroy)
+void LogManager::Add(ILogger *Log)
+{
+	std::shared_ptr<ILogger> ptr(Log);
+	Add(ptr);
+}
+
+void LogManager::RemoveAll()
 {
 	Lock();
 	while(m_loggers.empty() == false)
 	{
-		ILogger *p = m_loggers.front();
+		std::shared_ptr<ILogger> p = m_loggers.front();
 		m_loggers.remove(p);
-		if (destroy)
-			delete p;
 	}
 	Unlock();
 }

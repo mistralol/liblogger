@@ -13,12 +13,11 @@ void Function(const LogType Type, const std::string &str)
 
 int main(int argc, char ** argv)
 {
-	LogManager::Init();
 	LogManager::Add(new LogCallBack(Function));
 
 	examples();
 
-	LogManager::RemoveAll(true);
+	LogManager::RemoveAll();
 	return 0;
 }
 

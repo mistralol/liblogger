@@ -8,12 +8,11 @@ using namespace liblogger;
 
 int main(int argc, char ** argv)
 {
-	LogManager::Init();
 	LogManager::Add(new LogFile("/proc/self/fd/1"));
 
 	examples();
 
-	LogManager::RemoveAll(true);
+	LogManager::RemoveAll();
 	return 0;
 }
 

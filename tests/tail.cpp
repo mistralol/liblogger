@@ -8,15 +8,13 @@ using namespace liblogger;
 
 int main(int argc, char ** argv)
 {
-	LogManager::Init();
-	LogTail Tail(3);
-	LogManager::Add(&Tail);
+	std::shared_ptr<LogTail> Tail(new LogTail(3));
+	LogManager::Add(Tail);
 
 	examples();
 
-	LogManager::RemoveAll(false);
-
-	printf("%s\n", Tail.GetData().c_str());
+	printf("%s\n", Tail->GetData().c_str());
+	LogManager::RemoveAll();
 	return 0;
 }
 
