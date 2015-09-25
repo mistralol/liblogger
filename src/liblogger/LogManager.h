@@ -4,8 +4,6 @@ namespace liblogger
 	class LogManager 
 	{
 		public:
-			static void Init();
-		
 			static void Add(ILogger *Log);
 
 			static void Send(const LogType Type, const std::string &str);

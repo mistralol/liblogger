@@ -9,25 +9,10 @@
 namespace liblogger {
 
 std::list<ILogger *> LogManager::m_loggers;
-pthread_mutex_t LogManager::m_mutex;
+pthread_mutex_t LogManager::m_mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
 bool LogManager::m_locked = false;
 uint64_t LogManager::m_TotalMessages = 0;
 LogType LogManager::m_Type = LOGGER_DEBUG;
-
-void LogManager::Init()
-{
-	pthread_mutexattr_t attr;
-	
-	if (pthread_mutexattr_init(&attr) < 0)
-		abort();
-		
-	if (pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE) < 0)
-		abort();
-		
-	if (pthread_mutex_init(&m_mutex, &attr) < 0)
-		abort();
-
-}
 
 void LogManager::Add(ILogger *Log)
 {
