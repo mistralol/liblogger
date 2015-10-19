@@ -16,35 +16,30 @@ LogType LogManager::m_Type = LOGGER_DEBUG;
 
 void LogManager::Send(const LogType Type, const std::string &str)
 {
-	Lock();
+	LogManagerScopedLock lock = LogManagerScopedLock();
 	
 	if (Type < m_Type)
-	{
-		Unlock();
 		return;
-	}
 	
 	m_TotalMessages++;	
 	for( std::list<std::shared_ptr<ILogger> >::iterator i = m_loggers.begin(); i != m_loggers.end(); i++)
 	{
 		(*i)->Log(Type, str);
 	}
-	Unlock();
 }
 
 void LogManager::Rotate()
 {
-	Lock();
+	LogManagerScopedLock lock = LogManagerScopedLock();
 	for( std::list<std::shared_ptr<ILogger> >::iterator it = m_loggers.begin(); it != m_loggers.end(); it++)
 		(*it)->Rotate();
-	Unlock();
 }
 
 void LogManager::Add(std::shared_ptr<ILogger> Log)
 {
-	Lock();
+	LogManagerScopedLock lock = LogManagerScopedLock();
 	m_loggers.push_back(Log);
-	Unlock();
+	lock.Unlock();
 #ifdef DEBUG
 	std::string str;
 	Log->GetName(&str);
@@ -54,12 +49,12 @@ void LogManager::Add(std::shared_ptr<ILogger> Log)
 
 void LogManager::Remove(std::shared_ptr<ILogger> Log)
 {
-	Lock();
+	LogManagerScopedLock lock = LogManagerScopedLock();
 	size_t size = m_loggers.size();
 	m_loggers.remove(Log);
 	if (size == m_loggers.size())
 		abort();
-	Unlock();
+	lock.Unlock();
 #ifdef DEBUG
 	std::string str;
 	Log->GetName(&str);
@@ -75,13 +70,12 @@ void LogManager::Add(ILogger *Log)
 
 void LogManager::RemoveAll()
 {
-	Lock();
+	LogManagerScopedLock lock = LogManagerScopedLock();
 	while(m_loggers.empty() == false)
 	{
 		std::shared_ptr<ILogger> p = m_loggers.front();
 		m_loggers.remove(p);
 	}
-	Unlock();
 }
 
 std::string LogManager::GetVersion()
@@ -105,9 +99,8 @@ void LogManager::Unlock()
 
 void LogManager::SetLevel(LogType Type)
 {
-	Lock();
+	LogManagerScopedLock lock = LogManagerScopedLock();
 	m_Type = Type;
-	Unlock();
 }
 
 LogType LogManager::GetLevel()

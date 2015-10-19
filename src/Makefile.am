@@ -5,7 +5,7 @@ lib_LTLIBRARIES=liblogger.la
 
 liblogger_la_LDFLAGS = -version-info 1:0:0
 
-liblogger_la_SOURCES=Logger.cpp LogManager.cpp LogType.cpp \
+liblogger_la_SOURCES=Logger.cpp LogManager.cpp LogType.cpp LogManagerScopedLock.cpp \
 		LogCallBack.cpp \
 		LogFile.cpp \
 		LogPipe.cpp \
@@ -21,7 +21,7 @@ include_HEADERS=liblogger.h
 
 otherincludedir = $(includedir)/liblogger
 
-otherinclude_HEADERS=liblogger/LogManager.h liblogger/ILogger.h liblogger/LogType.h \
+otherinclude_HEADERS=liblogger/LogManager.h liblogger/LogManagerScopedLock.h liblogger/ILogger.h liblogger/LogType.h \
 	liblogger/LogCallBack.h \
 	liblogger/LogFile.h \
 	liblogger/Logger.h \
