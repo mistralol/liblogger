@@ -7,7 +7,7 @@ namespace liblogger
 		public:
 			LogManagerScopedLock();
 			~LogManagerScopedLock();
-	
+
 			void Unlock();
 		private:
 			bool m_locked;

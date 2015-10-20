@@ -15,7 +15,7 @@ LogManagerScopedLock::~LogManagerScopedLock()
 	if (m_locked == true)
 		LogManager::Unlock();
 }
-	
+
 void LogManagerScopedLock::Unlock()
 {
 	m_locked = false;

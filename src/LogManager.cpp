@@ -20,7 +20,7 @@ void LogManager::Send(const LogType Type, const std::string &str)
 	
 	if (Type < m_Type)
 		return;
-	
+
 	m_TotalMessages++;	
 	for( std::list<std::shared_ptr<ILogger> >::iterator i = m_loggers.begin(); i != m_loggers.end(); i++)
 	{
