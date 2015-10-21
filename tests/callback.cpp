@@ -6,14 +6,14 @@ using namespace liblogger;
 
 #include "examples.h"
 
-void Function(const LogType Type, const std::string &str)
+void Function(void *arg, const LogType Type, const std::string &str)
 {
 	printf("%d - %s\n", Type, str.c_str());
 }
 
 int main(int argc, char ** argv)
 {
-	LogManager::Add(new LogCallBack(Function));
+	LogManager::Add(new LogCallBack(NULL, Function));
 
 	examples();
 

@@ -19,7 +19,7 @@ class MyFilter : public ILogFilter
 
 bool Called = false;
 
-void Function(const LogType Type, const std::string &str)
+void Function(void *arg, const LogType Type, const std::string &str)
 {
 	printf("%d - %s\n", Type, str.c_str());
 	Called = true;
@@ -27,7 +27,7 @@ void Function(const LogType Type, const std::string &str)
 
 int main(int argc, char ** argv)
 {
-	LogManager::Add(new LogCallBack(Function));
+	LogManager::Add(new LogCallBack(NULL, Function));
 	LogManager::FilterAdd(new MyFilter());
 
 	LogInfo("Testing");

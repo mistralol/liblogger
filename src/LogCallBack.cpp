@@ -6,9 +6,11 @@
 namespace liblogger
 {
 
-LogCallBack::LogCallBack( void (*CallBack) (const LogType Type, const std::string &str) )
+LogCallBack::LogCallBack(void *arg, void (*CallBack) (void *arg, const LogType Type, const std::string &str) ) :
+	m_CallBack(CallBack),
+	m_arg(arg)
 {
-	m_CallBack = CallBack;
+
 }
 
 void LogCallBack::GetName(std::string *str)
@@ -23,7 +25,7 @@ void LogCallBack::GetDesc(std::string *str)
 
 void LogCallBack::Log(const LogType Type, const std::string &str)
 {
-	m_CallBack(Type, str);
+	m_CallBack(m_arg, Type, str);
 }
 
 };
