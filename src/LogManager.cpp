@@ -9,26 +9,53 @@
 namespace liblogger {
 
 std::list<std::shared_ptr<ILogger> > LogManager::m_loggers;
+std::list<std::shared_ptr<ILogFilter> > LogManager::m_filters;
 pthread_mutex_t LogManager::m_mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
 bool LogManager::m_locked = false;
+bool LogManager::m_catcherrors = false;
 uint64_t LogManager::m_TotalMessages = 0;
 uint64_t LogManager::m_TotalDroppedMessages = 0;
+uint64_t LogManager::m_TotalErrors = 0;
+uint64_t LogManager::m_TotalFiltered = 0;
 LogType LogManager::m_Type = LOGGER_DEBUG;
 
 void LogManager::Send(const LogType Type, const std::string &str)
 {
 	LogManagerScopedLock lock = LogManagerScopedLock();
 	
-	if (Type < m_Type)
+	try
 	{
-		m_TotalDroppedMessages++;
-		return;
-	}
+		m_TotalMessages++;
+		if (Type < m_Type)
+		{
+			m_TotalDroppedMessages++;
+			return;
+		}
 
-	m_TotalMessages++;
-	for( std::list<std::shared_ptr<ILogger> >::iterator i = m_loggers.begin(); i != m_loggers.end(); i++)
+		//Filter any messages
+		for(std::list<std::shared_ptr<ILogFilter> >::iterator it = m_filters.begin(); it != m_filters.end(); it++)
+		{
+			bool filter = (*it)->Filter(Type, str);
+			if (filter)
+			{
+				m_TotalFiltered++;
+				return;
+			}
+		}
+
+		//Send to all loggers
+		for( std::list<std::shared_ptr<ILogger> >::iterator it = m_loggers.begin(); it != m_loggers.end(); it++)
+		{
+			(*it)->Log(Type, str);
+		}
+	}
+	catch(LogException &ex)
 	{
-		(*i)->Log(Type, str);
+		m_TotalErrors++;
+		if (m_catcherrors == false)
+		{
+			throw(ex);
+		}
 	}
 }
 
@@ -74,11 +101,35 @@ void LogManager::Add(ILogger *Log)
 void LogManager::RemoveAll()
 {
 	LogManagerScopedLock lock = LogManagerScopedLock();
-	while(m_loggers.empty() == false)
-	{
-		std::shared_ptr<ILogger> p = m_loggers.front();
-		m_loggers.remove(p);
-	}
+	m_loggers.clear();
+}
+
+void LogManager::FilterAdd(ILogFilter *filter)
+{
+	LogManagerScopedLock lock = LogManagerScopedLock();
+	std::shared_ptr<ILogFilter> ptr(filter);
+	FilterAdd(ptr);
+}
+
+void LogManager::FilterAdd(std::shared_ptr<ILogFilter> filter)
+{
+	LogManagerScopedLock lock = LogManagerScopedLock();
+	m_filters.push_back(filter);
+}
+
+void LogManager::FilterRemove(std::shared_ptr<ILogFilter> filter)
+{
+	LogManagerScopedLock lock = LogManagerScopedLock();
+	size_t size = m_filters.size();
+	m_filters.remove(filter);
+	if (size == m_filters.size())
+		throw(LogException("LogManager::FilterRemove cannot find filter module"));
+}
+
+void LogManager::FilterRemoveAll()
+{
+	LogManagerScopedLock lock = LogManagerScopedLock();
+	m_filters.clear();
 }
 
 std::string LogManager::GetVersion()

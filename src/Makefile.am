@@ -21,7 +21,7 @@ include_HEADERS=liblogger.h
 
 otherincludedir = $(includedir)/liblogger
 
-otherinclude_HEADERS=liblogger/LogManager.h liblogger/LogException.h liblogger/LogManagerScopedLock.h liblogger/ILogger.h liblogger/LogType.h \
+otherinclude_HEADERS=liblogger/LogManager.h liblogger/LogException.h liblogger/LogManagerScopedLock.h liblogger/ILogger.h liblogger/ILogFilter.h liblogger/LogType.h \
 	liblogger/LogCallBack.h \
 	liblogger/LogFile.h \
 	liblogger/Logger.h \

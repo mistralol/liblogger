@@ -17,6 +17,7 @@
 #include <liblogger/LogException.h>
 #include <liblogger/LogType.h>
 #include <liblogger/ILogger.h>
+#include <liblogger/ILogFilter.h>
 #include <liblogger/Logger.h>
 #include <liblogger/LogManager.h>
 #include <liblogger/LogManagerScopedLock.h>
