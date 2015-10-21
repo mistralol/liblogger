@@ -6,10 +6,11 @@
 namespace liblogger
 {
 
-LogTailIdx::LogTailIdx(size_t length)
+LogTailIdx::LogTailIdx(size_t length) :
+	m_length(length),
+	m_current(0)
 {
-	m_length = length;
-	m_current = 0;
+
 }
 
 void LogTailIdx::GetName(std::string *str)
@@ -24,6 +25,7 @@ void LogTailIdx::GetDesc(std::string *str)
 
 void LogTailIdx::Log(const LogType Type, const std::string &str)
 {
+	LogManagerScopedLock lock = LogManagerScopedLock();
 	m_data.insert(std::make_pair(m_current, str));
 	m_current++;
 	if (m_data.size() >= m_length)
@@ -34,14 +36,13 @@ void LogTailIdx::Log(const LogType Type, const std::string &str)
 
 std::list<std::string> LogTailIdx::GetList()
 {
-	LogManager::Lock();
+	LogManagerScopedLock lock = LogManagerScopedLock();
 	std::map<uint64_t, std::string>::iterator it = m_data.begin();
 	std::list<std::string> lst;
 	while(it != m_data.end())
 	{
 		lst.push_back(it->second);
 	}
-	LogManager::Unlock();
 	return lst;
 }
 
@@ -52,13 +53,12 @@ std::list<std::string> LogTailIdx::GetList(uint64_t *idx)
 
 std::list<std::string> LogTailIdx::GetList(uint64_t *idx, int maxitems)
 {
-	LogManager::Lock();
+	LogManagerScopedLock lock = LogManagerScopedLock();
 	std::list<std::string> lst;
 	
 	if (*idx > m_current)
 	{
 		*idx = m_current;
-		LogManager::Unlock();
 		return lst;
 	}
 		
@@ -81,8 +81,7 @@ std::list<std::string> LogTailIdx::GetList(uint64_t *idx, int maxitems)
 		lst.push_back(m_data[i]);
 		count++;
 	}
-	*idx = m_current;	
-	LogManager::Unlock();
+	*idx = m_current;
 	return lst;
 }
 

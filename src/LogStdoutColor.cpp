@@ -33,7 +33,8 @@ void LogStdoutColor::Log(const LogType Type, const std::string &str)
 	char buf[128];
 	
 	localtime_r(&current, &timeinfo);
-	strftime(buf, sizeof(buf), "%F %T", &timeinfo);
+	if (strftime(buf, sizeof(buf), "%F %T", &timeinfo) == 0)
+		abort(); //Bug
 
 	switch(Type)
 	{
@@ -41,7 +42,7 @@ void LogStdoutColor::Log(const LogType Type, const std::string &str)
 			if (fprintf(stdout, COLOR_BLUE "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
 			{
 				std::stringstream ss;
-				ss << "failed to write to stderr error:" << strerror(errno);
+				ss << "failed to write to stdout error:" << strerror(errno);
 				throw(LogException(ss.str()));
 			}
 			break;
@@ -49,7 +50,7 @@ void LogStdoutColor::Log(const LogType Type, const std::string &str)
 			if (fprintf(stdout, COLOR_GREEN "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
 			{
 				std::stringstream ss;
-				ss << "failed to write to stderr error:" << strerror(errno);
+				ss << "failed to write to stdout error:" << strerror(errno);
 				throw(LogException(ss.str()));
 			}
 			break;
@@ -57,7 +58,7 @@ void LogStdoutColor::Log(const LogType Type, const std::string &str)
 			if (fprintf(stdout, COLOR_GREEN "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
 			{
 				std::stringstream ss;
-				ss << "failed to write to stderr error:" << strerror(errno);
+				ss << "failed to write to stdout error:" << strerror(errno);
 				throw(LogException(ss.str()));
 			}
 			break;
@@ -65,7 +66,7 @@ void LogStdoutColor::Log(const LogType Type, const std::string &str)
 			if (fprintf(stdout, COLOR_YELLOW "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
 			{
 				std::stringstream ss;
-				ss << "failed to write to stderr error:" << strerror(errno);
+				ss << "failed to write to stdout error:" << strerror(errno);
 				throw(LogException(ss.str()));
 			}
 			break;
@@ -73,7 +74,7 @@ void LogStdoutColor::Log(const LogType Type, const std::string &str)
 			if (fprintf(stdout, COLOR_RED "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
 			{
 				std::stringstream ss;
-				ss << "failed to write to stderr error:" << strerror(errno);
+				ss << "failed to write to stdout error:" << strerror(errno);
 				throw(LogException(ss.str()));
 			}
 			break;
@@ -81,7 +82,7 @@ void LogStdoutColor::Log(const LogType Type, const std::string &str)
 			if (fprintf(stdout, COLOR_MAGENTA "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
 			{
 				std::stringstream ss;
-				ss << "failed to write to stderr error:" << strerror(errno);
+				ss << "failed to write to stdout error:" << strerror(errno);
 				throw(LogException(ss.str()));
 			}
 			break;
@@ -89,7 +90,7 @@ void LogStdoutColor::Log(const LogType Type, const std::string &str)
 			if (fprintf(stdout, COLOR_CYAN "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
 			{
 				std::stringstream ss;
-				ss << "failed to write to stderr error:" << strerror(errno);
+				ss << "failed to write to stdout error:" << strerror(errno);
 				throw(LogException(ss.str()));
 			}
 			break;
@@ -97,7 +98,7 @@ void LogStdoutColor::Log(const LogType Type, const std::string &str)
 			if (fprintf(stdout, COLOR_CYAN "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
 			{
 				std::stringstream ss;
-				ss << "failed to write to stderr error:" << strerror(errno);
+				ss << "failed to write to stdout error:" << strerror(errno);
 				throw(LogException(ss.str()));
 			}
 			break;
@@ -107,7 +108,12 @@ void LogStdoutColor::Log(const LogType Type, const std::string &str)
 		
 	}
 
-	fflush(stdout);
+	if (fflush(stdout) < 0)
+	{
+		std::stringstream ss;
+		ss << "failed to flush to stdout error:" << strerror(errno);
+		throw(LogException(ss.str()));
+	}
 }
 
 };

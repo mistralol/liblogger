@@ -23,9 +23,10 @@ void LogStdout::Log(const LogType Type, const std::string &str)
 	time_t current = time(NULL);
 	struct tm timeinfo;
 	char buf[128];
-	
+
 	localtime_r(&current, &timeinfo);
-	strftime(buf, sizeof(buf), "%F %T", &timeinfo);
+	if (strftime(buf, sizeof(buf), "%F %T", &timeinfo) == 0)
+		abort(); //Bug
 
 	if (fprintf(stdout, "%s - %s [PID: %d] - %s\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
 	{
@@ -33,7 +34,12 @@ void LogStdout::Log(const LogType Type, const std::string &str)
 		ss << "failed to write to stdout error:" << strerror(errno);
 		throw(LogException(ss.str()));
 	}
-	fflush(stdout);
+	if (fflush(stdout) < 0)
+	{
+		std::stringstream ss;
+		ss << "failed to flush to stdout error:" << strerror(errno);
+		throw(LogException(ss.str()));
+	}
 }
 
 };

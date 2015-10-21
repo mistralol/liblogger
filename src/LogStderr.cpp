@@ -25,7 +25,8 @@ void LogStderr::Log(const LogType Type, const std::string &str)
 	char buf[128];
 	
 	localtime_r(&current, &timeinfo);
-	strftime(buf, sizeof(buf), "%F %T", &timeinfo);
+	if (strftime(buf, sizeof(buf), "%F %T", &timeinfo) == 0)
+		abort(); //Bug
 
 	if (fprintf(stderr, "%s - %s [PID: %d] - %s\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
 	{
@@ -33,7 +34,12 @@ void LogStderr::Log(const LogType Type, const std::string &str)
 		ss << "failed to write to stderr error:" << strerror(errno);
 		throw(LogException(ss.str()));
 	}
-	fflush(stderr);
+	if (fflush(stderr) < 0)
+	{
+		std::stringstream ss;
+		ss << "failed to flush to stderr error:" << strerror(errno);
+		throw(LogException(ss.str()));
+	}
 }
 
 };

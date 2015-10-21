@@ -9,12 +9,28 @@ namespace liblogger
 
 LogSyslog::LogSyslog()
 {
-	openlog(NULL, 0, 0);
+	openlog(NULL, LOG_PID, 0);
 }
+
+LogSyslog::LogSyslog(const std::string ident)
+{
+	openlog(ident.c_str(), LOG_PID, 0);
+}
+
+LogSyslog::LogSyslog(const std::string ident, int options)
+{
+	openlog(ident.c_str(), options, 0);
+}
+
+LogSyslog::LogSyslog(const std::string ident, int options, int facility)
+{
+	openlog(ident.c_str(), options, facility);
+}
+
 
 LogSyslog::LogSyslog(int facility)
 {
-	openlog(NULL, 0, facility);
+	openlog(NULL, LOG_PID, facility);
 }
 
 LogSyslog::~LogSyslog()

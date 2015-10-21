@@ -28,7 +28,7 @@ const std::string LogTypeToStr(LogType Type)
 			abort();
 			break;
 	}
-	return "";
+	return ""; //Unreachable
 }
 
 

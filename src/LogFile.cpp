@@ -9,14 +9,14 @@
 namespace liblogger
 {
 
-LogFile::LogFile(const std::string fname)
+LogFile::LogFile(const std::string fname) :
+	m_fname(fname)
 {
-	m_fname = fname;
 	m_fp = fopen(m_fname.c_str(), "a");
 	if (m_fp == NULL)
 	{
 		std::stringstream ss;
-		ss << "Cannot open file: '" << fname << "'";
+		ss << "Cannot open file: '" << m_fname << "' error: " << strerror(errno);
 		throw(LogException(ss.str()));
 	}
 }
@@ -24,7 +24,14 @@ LogFile::LogFile(const std::string fname)
 LogFile::~LogFile()
 {
 	if (m_fp != NULL)
-		fclose(m_fp);		
+	{
+		if (fclose(m_fp) < 0)
+		{
+			std::stringstream ss;
+			ss << "Cannot close file: '" << m_fname << "' error: " << strerror(errno);
+			throw(LogException(ss.str()));
+		}
+	}
 }
 
 void LogFile::GetName(std::string *str)
@@ -55,14 +62,24 @@ void LogFile::Log(const LogType Type, const std::string &str)
 		ss << "failed to write to file '" << m_fname.c_str() << "' error:" << strerror(errno);
 		throw(LogException(ss.str()));
 	}
-	fflush(m_fp);
+	if (fflush(m_fp) < 0)
+	{
+		std::stringstream ss;
+		ss << "failed to fflush to file '" << m_fname.c_str() << "' error:" << strerror(errno);
+		throw(LogException(ss.str()));	
+	}
 }
 
 void LogFile::Rotate()
 {
 	if (m_fp != NULL)
 	{
-		fclose(m_fp);
+		if (fclose(m_fp) < 0)
+		{
+			std::stringstream ss;
+			ss << "failed to close to file '" << m_fname.c_str() << "' error:" << strerror(errno);
+			throw(LogException(ss.str()));	
+		}
 	}
 
 	m_fp = fopen(m_fname.c_str(), "a");

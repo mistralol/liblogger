@@ -27,6 +27,7 @@ namespace liblogger
 			static LogType m_Type;
 
 			static uint64_t m_TotalMessages;
+			static uint64_t m_TotalDroppedMessages;
 	};
 };
 

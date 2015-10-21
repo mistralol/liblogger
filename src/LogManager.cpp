@@ -12,6 +12,7 @@ std::list<std::shared_ptr<ILogger> > LogManager::m_loggers;
 pthread_mutex_t LogManager::m_mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
 bool LogManager::m_locked = false;
 uint64_t LogManager::m_TotalMessages = 0;
+uint64_t LogManager::m_TotalDroppedMessages = 0;
 LogType LogManager::m_Type = LOGGER_DEBUG;
 
 void LogManager::Send(const LogType Type, const std::string &str)
@@ -19,9 +20,12 @@ void LogManager::Send(const LogType Type, const std::string &str)
 	LogManagerScopedLock lock = LogManagerScopedLock();
 	
 	if (Type < m_Type)
+	{
+		m_TotalDroppedMessages++;
 		return;
+	}
 
-	m_TotalMessages++;	
+	m_TotalMessages++;
 	for( std::list<std::shared_ptr<ILogger> >::iterator i = m_loggers.begin(); i != m_loggers.end(); i++)
 	{
 		(*i)->Log(Type, str);

@@ -6,9 +6,10 @@
 namespace liblogger
 {
 
-LogTail::LogTail(size_t length)
+LogTail::LogTail(size_t length) :
+	m_length(length)
 {
-	m_length = length;
+
 }
 
 void LogTail::GetName(std::string *str)
@@ -23,6 +24,7 @@ void LogTail::GetDesc(std::string *str)
 
 void LogTail::Log(const LogType Type, const std::string &str)
 {
+	LogManagerScopedLock lock = LogManagerScopedLock();
 	if (m_data.size() >= m_length)
 		m_data.pop_front();
 	m_data.push_back(str);
@@ -30,7 +32,7 @@ void LogTail::Log(const LogType Type, const std::string &str)
 
 std::string LogTail::GetData()
 {
-	LogManager::Lock();
+	LogManagerScopedLock lock = LogManagerScopedLock();
 	std::list<std::string>::iterator it = m_data.begin();
 	std::stringstream ss;
 	while(it != m_data.end())
@@ -38,15 +40,13 @@ std::string LogTail::GetData()
 		ss << *it << '\n';
 		it++;
 	}
-	LogManager::Unlock();
 	return ss.str();
 }
 
 std::list<std::string> LogTail::GetList()
 {
-	LogManager::Lock();
+	LogManagerScopedLock lock = LogManagerScopedLock();
 	std::list<std::string> lst = m_data;
-	LogManager::Unlock();
 	return lst;
 }
 

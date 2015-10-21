@@ -5,6 +5,9 @@ namespace liblogger
 	{
 		public:
 			LogSyslog();
+			LogSyslog(const std::string ident);
+			LogSyslog(const std::string ident, int options);
+			LogSyslog(const std::string ident, int options, int facility);
 			LogSyslog(int facility);
 			virtual ~LogSyslog();
 		
