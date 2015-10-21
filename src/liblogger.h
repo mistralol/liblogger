@@ -12,7 +12,9 @@
 #include <list>
 #include <map>
 #include <memory>
+#include <exception>
 
+#include <liblogger/LogException.h>
 #include <liblogger/LogType.h>
 #include <liblogger/ILogger.h>
 #include <liblogger/Logger.h>
