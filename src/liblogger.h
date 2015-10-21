@@ -31,6 +31,8 @@
 #include <liblogger/LogTail.h>
 #include <liblogger/LogTailIdx.h>
 
+#include <liblogger/LogFilterType.h>
+#include <liblogger/LogFilterDup.h>
 
 #endif
 
