@@ -10,7 +10,8 @@ TESTS=callback \
 	stdoutcolor \
 	syslog \
 	tail \
-	remove
+	remove \
+	testfilter
 
 check_PROGRAMS=callback \
 	file \
@@ -20,7 +21,9 @@ check_PROGRAMS=callback \
 	stdoutcolor \
 	syslog \
 	tail \
-	remove
+	remove \
+	testfilter
+	
 	
 callback_SOURCES=callback.cpp
 file_SOURCES=file.cpp
@@ -31,4 +34,6 @@ stdoutcolor_SOURCES=stdoutcolor.cpp
 syslog_SOURCES=syslog.cpp
 tail_SOURCES=tail.cpp
 remove_SOURCES=remove.cpp
+testfilter_SOURCES=testfilter.cpp
+
 
