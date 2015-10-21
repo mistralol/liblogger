@@ -33,6 +33,7 @@
 
 #include <liblogger/LogFilterType.h>
 #include <liblogger/LogFilterDup.h>
+#include <liblogger/LogFilterCallBack.h>
 
 #endif
 
