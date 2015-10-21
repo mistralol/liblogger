@@ -53,8 +53,7 @@ void LogManager::Remove(std::shared_ptr<ILogger> Log)
 	size_t size = m_loggers.size();
 	m_loggers.remove(Log);
 	if (size == m_loggers.size())
-		abort();
-	lock.Unlock();
+		throw(LogException("LogManager::Remove cannot find logging module"));
 #ifdef DEBUG
 	std::string str;
 	Log->GetName(&str);
@@ -86,7 +85,7 @@ std::string LogManager::GetVersion()
 void LogManager::Lock()
 {
 	if (pthread_mutex_lock(&m_mutex) < 0)
-		abort();
+		throw(LogException("pthread_mutex_lock failed"));
 	m_locked = true;
 }
 
@@ -94,7 +93,7 @@ void LogManager::Unlock()
 {
 	m_locked = false;
 	if (pthread_mutex_unlock(&m_mutex) < 0)
-		abort();
+		throw(LogException("pthread_mutex_unlock failed"));
 }
 
 void LogManager::SetLevel(LogType Type)

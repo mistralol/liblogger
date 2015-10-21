@@ -1,6 +1,8 @@
 
 #include <stdio.h>
-
+#include <string.h>
+#include <errno.h>
+#include <sstream>
 #include "liblogger.h"
 
 #define COLOR_RED     "\x1b[31m"
@@ -36,29 +38,73 @@ void LogStdoutColor::Log(const LogType Type, const std::string &str)
 	switch(Type)
 	{
 		case LOGGER_DEBUG:
-			fprintf(stdout, COLOR_BLUE "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str());
+			if (fprintf(stdout, COLOR_BLUE "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
+			{
+				std::stringstream ss;
+				ss << "failed to write to stderr error:" << strerror(errno);
+				throw(LogException(ss.str()));
+			}
 			break;
 		case LOGGER_INFO:
-			fprintf(stdout, COLOR_GREEN "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str());
+			if (fprintf(stdout, COLOR_GREEN "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
+			{
+				std::stringstream ss;
+				ss << "failed to write to stderr error:" << strerror(errno);
+				throw(LogException(ss.str()));
+			}
 			break;
 		case LOGGER_NOTICE:
-			fprintf(stdout, COLOR_GREEN "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str());
+			if (fprintf(stdout, COLOR_GREEN "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
+			{
+				std::stringstream ss;
+				ss << "failed to write to stderr error:" << strerror(errno);
+				throw(LogException(ss.str()));
+			}
 			break;
 		case LOGGER_WARNING:
-			fprintf(stdout, COLOR_YELLOW "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str());
+			if (fprintf(stdout, COLOR_YELLOW "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
+			{
+				std::stringstream ss;
+				ss << "failed to write to stderr error:" << strerror(errno);
+				throw(LogException(ss.str()));
+			}
 			break;
 		case LOGGER_ERR:
-			fprintf(stdout, COLOR_RED "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str());
+			if (fprintf(stdout, COLOR_RED "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
+			{
+				std::stringstream ss;
+				ss << "failed to write to stderr error:" << strerror(errno);
+				throw(LogException(ss.str()));
+			}
 			break;
 		case LOGGER_CRIT:
-			fprintf(stdout, COLOR_MAGENTA "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str());
+			if (fprintf(stdout, COLOR_MAGENTA "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
+			{
+				std::stringstream ss;
+				ss << "failed to write to stderr error:" << strerror(errno);
+				throw(LogException(ss.str()));
+			}
 			break;
 		case LOGGER_ALERT:
-			fprintf(stdout, COLOR_CYAN "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str());
+			if (fprintf(stdout, COLOR_CYAN "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
+			{
+				std::stringstream ss;
+				ss << "failed to write to stderr error:" << strerror(errno);
+				throw(LogException(ss.str()));
+			}
 			break;
 		case LOGGER_EMERG:
-			fprintf(stdout, COLOR_CYAN "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str());
+			if (fprintf(stdout, COLOR_CYAN "%s - %s [PID: %d] - %s" COLOR_RESET "\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
+			{
+				std::stringstream ss;
+				ss << "failed to write to stderr error:" << strerror(errno);
+				throw(LogException(ss.str()));
+			}
 			break;
+		default:
+			abort(); //Should be unreachable
+			break;
+		
 	}
 
 	fflush(stdout);

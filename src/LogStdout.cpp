@@ -1,6 +1,8 @@
 
 #include <stdio.h>
-
+#include <string.h>
+#include <errno.h>
+#include <sstream>
 #include "liblogger.h"
 
 namespace liblogger
@@ -25,7 +27,12 @@ void LogStdout::Log(const LogType Type, const std::string &str)
 	localtime_r(&current, &timeinfo);
 	strftime(buf, sizeof(buf), "%F %T", &timeinfo);
 
-	fprintf(stdout, "%s - %s [PID: %d] - %s\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str());
+	if (fprintf(stdout, "%s - %s [PID: %d] - %s\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
+	{
+		std::stringstream ss;
+		ss << "failed to write to stdout error:" << strerror(errno);
+		throw(LogException(ss.str()));
+	}
 	fflush(stdout);
 }
 
