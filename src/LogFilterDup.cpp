@@ -9,8 +9,7 @@ LogFilterDup::LogFilterDup() :
 	m_busy(false),
 	m_last(""),
 	m_lasttype(LOGGER_DEBUG),
-	m_matched(0),
-	m_dropped(0)
+	m_matched(0)
 {
 
 }
@@ -30,7 +29,6 @@ bool LogFilterDup::Filter(const LogType Type, const std::string &str)
 		if (Type == m_lasttype && str == m_last)
 		{
 			m_matched++;
-			m_dropped++;
 			m_busy = false;
 			return true;
 		}
@@ -52,11 +50,6 @@ bool LogFilterDup::Filter(const LogType Type, const std::string &str)
 		m_busy = false;
 		throw(ex);
 	}
-}
-			
-uint64_t LogFilterDup::GetDropped()
-{
-	return m_dropped;
 }
 
 };
