@@ -30,6 +30,7 @@
 #include <liblogger/LogCallBack.h>
 #include <liblogger/LogTail.h>
 #include <liblogger/LogTailIdx.h>
+#include <liblogger/LogUdp.h>
 
 #include <liblogger/LogFilterType.h>
 #include <liblogger/LogFilterDup.h>
