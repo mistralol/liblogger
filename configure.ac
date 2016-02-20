@@ -13,9 +13,8 @@ AC_PROG_LIBTOOL
 
 AX_CXX_COMPILE_STDCXX_11(noext, optional)
 
-AC_SUBST([AM_CXXFLAGS], ["-Wall -Werror"])
-
-AC_OUTPUT(Makefile src/Makefile tests/Makefile)
+AX_COMPILER_FLAGS([WARN_CFLAGS],[WARN_LDFLAGS])
+AC_SUBST([AM_CXXFLAGS], $WARN_CXXFLAGS)
 
 AC_CHECK_HEADERS(syslog.h)
 AC_CHECK_HEADER_STDBOOL()
@@ -25,4 +24,5 @@ AC_TYPE_UINT64_T
 
 AC_CHECK_FUNCS([localtime_r])
 
+AC_OUTPUT(Makefile src/Makefile tests/Makefile)
 

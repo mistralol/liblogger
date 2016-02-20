@@ -1,9 +1,9 @@
 
 #include <liblogger.h>
 
-LogException::LogException(const std::string exception)
+LogException::LogException(const std::string message)
 {
-	m_message = exception;
+	m_message = message;
 }
 
 LogException::~LogException()
