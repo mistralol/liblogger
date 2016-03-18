@@ -4,6 +4,7 @@ LDADD=../src/.libs/liblogger.a -lpthread
 
 TESTS=callback \
 	file \
+	filehourly \
 	pipe \
 	stderr \
 	stdout \
@@ -15,6 +16,7 @@ TESTS=callback \
 
 check_PROGRAMS=callback \
 	file \
+	filehourly \
 	pipe \
 	stderr \
 	stdout \
@@ -27,6 +29,7 @@ check_PROGRAMS=callback \
 	
 callback_SOURCES=callback.cpp
 file_SOURCES=file.cpp
+filehourly_SOURCES=filehourly.cpp
 pipe_SOURCES=pipe.cpp
 stderr_SOURCES=stderr.cpp
 stdout_SOURCES=stdout.cpp

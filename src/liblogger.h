@@ -26,6 +26,7 @@
 #include <liblogger/LogStderr.h>
 #include <liblogger/LogSyslog.h>
 #include <liblogger/LogFile.h>
+#include <liblogger/LogFileHourly.h>
 #include <liblogger/LogPipe.h>
 #include <liblogger/LogCallBack.h>
 #include <liblogger/LogTail.h>

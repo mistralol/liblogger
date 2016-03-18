@@ -8,6 +8,7 @@ liblogger_la_LDFLAGS = -version-info 1:0:0
 liblogger_la_SOURCES=Logger.cpp LogException.cpp LogManager.cpp LogType.cpp LogManagerScopedLock.cpp \
 		LogCallBack.cpp \
 		LogFile.cpp \
+		LogFileHourly.cpp \
 		LogPipe.cpp \
 		LogStderr.cpp \
 		LogStdout.cpp \
@@ -28,6 +29,7 @@ otherincludedir = $(includedir)/liblogger
 otherinclude_HEADERS=liblogger/LogManager.h liblogger/LogException.h liblogger/LogManagerScopedLock.h liblogger/ILogger.h liblogger/ILogFilter.h liblogger/LogType.h \
 	liblogger/LogCallBack.h \
 	liblogger/LogFile.h \
+	liblogger/LogFileHourly.h \
 	liblogger/Logger.h \
 	liblogger/LogPipe.h \
 	liblogger/LogStderr.h \

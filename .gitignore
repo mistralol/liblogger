@@ -32,6 +32,7 @@ liblogger.pc
 *.trs
 tests/callback
 tests/file
+tests/filehourly
 tests/pipe
 tests/stderr
 tests/stdout
