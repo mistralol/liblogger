@@ -1,6 +1,6 @@
 
 
-void examples()
+static void examples()
 {
 	LogDebug("Debug Logging #1");
 	LogDebug("Debug Logging #%d", 2);

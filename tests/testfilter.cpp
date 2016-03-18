@@ -4,8 +4,6 @@
 
 using namespace liblogger;
 
-#include "examples.h"
-
 class MyFilter : public ILogFilter
 {
 	public:
@@ -19,7 +17,7 @@ class MyFilter : public ILogFilter
 
 bool Called = false;
 
-void Function(void *arg, const LogType Type, const std::string &str)
+static void Function(void *arg, const LogType Type, const std::string &str)
 {
 	printf("%d - %s\n", Type, str.c_str());
 	Called = true;
