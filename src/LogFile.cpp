@@ -54,7 +54,12 @@ void LogFile::Log(const LogType Type, const std::string &str)
 	char buf[128];
 	
 	localtime_r(&current, &timeinfo);
-	strftime(buf, sizeof(buf), "%F %T", &timeinfo);
+	if (strftime(buf, sizeof(buf), "%F %T", &timeinfo) == 0)
+	{
+		std::stringstream ss;
+		ss << "strftime failed: '" << "' error: " << strerror(errno);
+		throw(LogException(ss.str()));
+	}
 
 	if (fprintf(m_fp, "%s - %s [PID: %d] - %s\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
 	{
