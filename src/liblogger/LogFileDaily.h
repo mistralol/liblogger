@@ -1,11 +1,11 @@
 
 namespace liblogger
 {
-	class LogfileDaily : public ILogger
+	class LogFileDaily : public ILogger
 	{
 		public:
-			LogfileDaily(const std::string dir, const std::string prefix, int maxage);
-			virtual ~LogfileDaily();
+			LogFileDaily(const std::string dir, const std::string prefix, int maxage);
+			virtual ~LogFileDaily();
 		
 			void GetName(std::string *str);
 			void GetDesc(std::string *str);

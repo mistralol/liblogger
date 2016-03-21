@@ -11,7 +11,7 @@
 namespace liblogger
 {
 
-LogfileDaily::LogfileDaily(const std::string dir, const std::string prefix, int maxage) :
+LogFileDaily::LogFileDaily(const std::string dir, const std::string prefix, int maxage) :
 	m_dir(dir),
 	m_prefix(prefix),
 	m_maxage(maxage),
@@ -21,7 +21,7 @@ LogfileDaily::LogfileDaily(const std::string dir, const std::string prefix, int 
 
 }
 
-LogfileDaily::~LogfileDaily()
+LogFileDaily::~LogFileDaily()
 {
 	if (m_fp != NULL)
 	{
@@ -34,17 +34,17 @@ LogfileDaily::~LogfileDaily()
 	}
 }
 
-void LogfileDaily::GetName(std::string *str)
+void LogFileDaily::GetName(std::string *str)
 {
-	*str = "LogfileDaily";
+	*str = "LogFileDaily";
 }
 
-void LogfileDaily::GetDesc(std::string *str)
+void LogFileDaily::GetDesc(std::string *str)
 {
 	*str = "Logs to a new file evey day";
 }
 
-void LogfileDaily::Log(const LogType Type, const std::string &str)
+void LogFileDaily::Log(const LogType Type, const std::string &str)
 {
 	if (m_fp == NULL)
 	{
@@ -114,7 +114,7 @@ void LogfileDaily::Log(const LogType Type, const std::string &str)
 	}
 }
 
-void LogfileDaily::Rotate()
+void LogFileDaily::Rotate()
 {
 	if (m_fp != NULL)
 	{
@@ -129,7 +129,7 @@ void LogfileDaily::Rotate()
 	RemoveOld();
 }
 
-void LogfileDaily::RemoveOld()
+void LogFileDaily::RemoveOld()
 {
 
 	if (m_maxage <= 0)
