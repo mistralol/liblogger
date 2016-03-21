@@ -33,6 +33,7 @@ liblogger.pc
 tests/callback
 tests/file
 tests/filehourly
+tests/filedaily
 tests/pipe
 tests/stderr
 tests/stdout

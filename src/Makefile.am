@@ -9,6 +9,7 @@ liblogger_la_SOURCES=Logger.cpp LogException.cpp LogManager.cpp LogType.cpp LogM
 		LogCallBack.cpp \
 		LogFile.cpp \
 		LogFileHourly.cpp \
+		LogFileDaily.cpp \
 		LogPipe.cpp \
 		LogStderr.cpp \
 		LogStdout.cpp \
@@ -30,6 +31,7 @@ otherinclude_HEADERS=liblogger/LogManager.h liblogger/LogException.h liblogger/L
 	liblogger/LogCallBack.h \
 	liblogger/LogFile.h \
 	liblogger/LogFileHourly.h \
+	liblogger/LogFileDaily.h \
 	liblogger/Logger.h \
 	liblogger/LogPipe.h \
 	liblogger/LogStderr.h \

@@ -8,7 +8,7 @@ using namespace liblogger;
 
 int main(int argc, char ** argv)
 {
-	LogManager::Add(new LogFileHourly("/tmp", "TestLogHourly", 1));
+	LogManager::Add(new LogFileDaily("/tmp", "TestLogDaily", 1));
 
 	examples();
 

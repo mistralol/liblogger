@@ -11,7 +11,7 @@
 namespace liblogger
 {
 
-LogFileHourly::LogFileHourly(const std::string dir, const std::string prefix, int maxage) :
+LogfileDaily::LogfileDaily(const std::string dir, const std::string prefix, int maxage) :
 	m_dir(dir),
 	m_prefix(prefix),
 	m_maxage(maxage),
@@ -21,7 +21,7 @@ LogFileHourly::LogFileHourly(const std::string dir, const std::string prefix, in
 
 }
 
-LogFileHourly::~LogFileHourly()
+LogfileDaily::~LogfileDaily()
 {
 	if (m_fp != NULL)
 	{
@@ -34,17 +34,17 @@ LogFileHourly::~LogFileHourly()
 	}
 }
 
-void LogFileHourly::GetName(std::string *str)
+void LogfileDaily::GetName(std::string *str)
 {
-	*str = "FileHourly";
+	*str = "LogfileDaily";
 }
 
-void LogFileHourly::GetDesc(std::string *str)
+void LogfileDaily::GetDesc(std::string *str)
 {
-	*str = "Logs to a new file evey hour";
+	*str = "Logs to a new file evey day";
 }
 
-void LogFileHourly::Log(const LogType Type, const std::string &str)
+void LogfileDaily::Log(const LogType Type, const std::string &str)
 {
 	if (m_fp == NULL)
 	{
@@ -58,7 +58,7 @@ void LogFileHourly::Log(const LogType Type, const std::string &str)
 
 	localtime_r(&current, &timeinfo);
 	
-	if (strftime(fname, sizeof(fname), "%Y%m%d%H", &timeinfo) == 0)
+	if (strftime(fname, sizeof(fname), "%Y%m%d", &timeinfo) == 0)
 	{
 		std::stringstream ss;
 		ss << "strftime failed: '" << "' error: " << strerror(errno);
@@ -114,7 +114,7 @@ void LogFileHourly::Log(const LogType Type, const std::string &str)
 	}
 }
 
-void LogFileHourly::Rotate()
+void LogfileDaily::Rotate()
 {
 	if (m_fp != NULL)
 	{
@@ -129,7 +129,7 @@ void LogFileHourly::Rotate()
 	RemoveOld();
 }
 
-void LogFileHourly::RemoveOld()
+void LogfileDaily::RemoveOld()
 {
 
 	if (m_maxage <= 0)
@@ -149,7 +149,7 @@ void LogFileHourly::RemoveOld()
 
 	localtime_r(&current, &timeinfo);
 	
-	if (strftime(strtime, sizeof(strtime), "%Y%m%d%H", &timeinfo) == 0)
+	if (strftime(strtime, sizeof(strtime), "%Y%m%d", &timeinfo) == 0)
 	{
 		std::stringstream ss;
 		ss << "strftime failed: '" << "' error: " << strerror(errno);
