@@ -12,6 +12,13 @@
 *.la
 *.a
 *~
+
+#Some test files for code coverage
+*.gcda
+*.gcno
+liblogger-1.0.0-coverage.info
+liblogger-1.0.0-coverage/
+
 aclocal.m4
 autom4te.cache
 config

@@ -1,9 +1,5 @@
 
-AM_CPPFLAGS=
-
 lib_LTLIBRARIES=liblogger.la
-
-liblogger_la_LDFLAGS = -version-info 1:0:0
 
 liblogger_la_SOURCES=Logger.cpp LogException.cpp LogManager.cpp LogType.cpp LogManagerScopedLock.cpp \
 		LogCallBack.cpp \

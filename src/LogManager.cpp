@@ -162,4 +162,16 @@ LogType LogManager::GetLevel()
 	return m_Type;
 }
 
+void LogManager::PrintAll()
+{
+	LogManagerScopedLock lock = LogManagerScopedLock();
+	for( std::list<std::shared_ptr<ILogger> >::iterator it = m_loggers.begin(); it != m_loggers.end(); it++)
+	{
+		std::string Name, Desc;
+		(*it)->GetName(&Name);
+		(*it)->GetDesc(&Desc);
+		LogInfo("LogName: '%s' Desc: '%s'", Name.c_str(), Desc.c_str());
+	}
+}
+
 };

@@ -2,6 +2,8 @@
 
 static void examples()
 {
+	LogManager::PrintAll();
+
 	LogDebug("Debug Logging #1");
 	LogDebug("Debug Logging #%d", 2);
 
@@ -23,8 +25,9 @@ static void examples()
 	LogAlert("Alert Alert");
 	LogAlert("Alert Alert %s", "Alert");
 
-	LogEmergency("Emergency!");
-	LogEmergency("Emergency! %s", "Black Hole detected");
+	LogCritical("TestLog Critical!");
+	
+	LogEmergency("TestLog Emergency!");
 
 }
 

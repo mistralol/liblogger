@@ -11,6 +11,7 @@ namespace liblogger
 			static void Add(std::shared_ptr<ILogger> Log);
 			static void Remove(std::shared_ptr<ILogger> Log);
 			static void RemoveAll();
+			static void PrintAll();
 
 			static void FilterAdd(ILogFilter *filter);
 			static void FilterAdd(std::shared_ptr<ILogFilter> filter);
