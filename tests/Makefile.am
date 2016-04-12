@@ -27,7 +27,8 @@ check_PROGRAMS=callback \
 	tail \
 	remove \
 	testfilter
-	
+
+check_HEADERS=examples.h	
 	
 callback_SOURCES=callback.cpp
 file_SOURCES=file.cpp
