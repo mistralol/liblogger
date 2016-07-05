@@ -13,7 +13,8 @@ TESTS=callback \
 	syslog \
 	tail \
 	remove \
-	testfilter
+	testfilter \
+	tcpserver
 
 check_PROGRAMS=callback \
 	file \
@@ -26,7 +27,8 @@ check_PROGRAMS=callback \
 	syslog \
 	tail \
 	remove \
-	testfilter
+	testfilter \
+	tcpserver
 
 check_HEADERS=examples.h	
 	
@@ -42,5 +44,5 @@ syslog_SOURCES=syslog.cpp
 tail_SOURCES=tail.cpp
 remove_SOURCES=remove.cpp
 testfilter_SOURCES=testfilter.cpp
-
+tcpserver_SOURCES=tcpserver.cpp
 

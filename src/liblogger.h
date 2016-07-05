@@ -33,6 +33,7 @@
 #include <liblogger/LogTail.h>
 #include <liblogger/LogTailIdx.h>
 #include <liblogger/LogUdp.h>
+#include <liblogger/LogTcpServer.h>
 
 #include <liblogger/LogFilterType.h>
 #include <liblogger/LogFilterDup.h>

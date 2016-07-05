@@ -49,4 +49,5 @@ tests/syslog
 tests/tail
 tests/remove
 tests/testfilter
+tests/tcpserver
 
