@@ -18,7 +18,8 @@ liblogger_la_SOURCES=Logger.cpp LogException.cpp LogManager.cpp LogType.cpp LogM
 		LogTailIdx.cpp \
 		LogFilterType.cpp \
 		LogFilterDup.cpp \
-		LogFilterCallBack.cpp
+		LogFilterCallBack.cpp \
+		LogFilterContains.cpp
 
 
 include_HEADERS=liblogger.h
@@ -43,6 +44,7 @@ otherinclude_HEADERS=liblogger/LogManager.h liblogger/LogException.h liblogger/L
 	liblogger/LogTailIdx.h \
 	liblogger/LogFilterType.h \
 	liblogger/LogFilterDup.h \
-	liblogger/LogFilterCallBack.h
+	liblogger/LogFilterCallBack.h \
+	liblogger/LogFilterContains.h
 
 

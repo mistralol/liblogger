@@ -39,6 +39,7 @@
 #include <liblogger/LogFilterType.h>
 #include <liblogger/LogFilterDup.h>
 #include <liblogger/LogFilterCallBack.h>
+#include <liblogger/LogFilterContains.h>
 
 #endif
 
