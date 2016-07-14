@@ -190,8 +190,15 @@ void LogTcpServer::Log(const LogType Type, const std::string &str)
 		
 		for(auto fd : m_list)
 		{
-			//FIXME: deal with short write
-			ssize_t ret = write(fd, msg, len);
+			ssize_t offset = 0;
+			ssize_t ret = 0;
+			do
+			{
+				ret = write(fd, msg + offset, len - offset);
+				if (ret < 0)
+					break;
+				offset += len;
+			} while(offset < len);
 			if (ret < len || ret == 0)
 			{
 				broken.push_back(fd);
