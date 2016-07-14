@@ -196,9 +196,22 @@ void LogTcpServer::Log(const LogType Type, const std::string &str)
 			{
 				ret = write(fd, msg + offset, len - offset);
 				if (ret < 0)
-					break;
-				offset += len;
+				{
+					switch(errno)
+					{
+						case EINTR:
+							ret = 0; //Fudge this as if we didn't write anything
+							break;
+						default:
+							break;
+					}
+				}
+				else
+				{
+					offset += len;
+				}
 			} while(offset < len);
+
 			if (ret < len || ret == 0)
 			{
 				broken.push_back(fd);
