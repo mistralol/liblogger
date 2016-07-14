@@ -13,6 +13,7 @@ liblogger_la_SOURCES=Logger.cpp LogException.cpp LogManager.cpp LogType.cpp LogM
 		LogSyslog.cpp \
 		LogUdp.cpp \
 		LogTcpServer.cpp \
+		LogUnixServer.cpp \
 		LogTail.cpp  \
 		LogTailIdx.cpp \
 		LogFilterType.cpp \
@@ -37,6 +38,7 @@ otherinclude_HEADERS=liblogger/LogManager.h liblogger/LogException.h liblogger/L
 	liblogger/LogSyslog.h \
 	liblogger/LogUdp.h \
 	liblogger/LogTcpServer.h \
+	liblogger/LogUnixServer.h \
 	liblogger/LogTail.h \
 	liblogger/LogTailIdx.h \
 	liblogger/LogFilterType.h \

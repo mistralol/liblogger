@@ -14,7 +14,8 @@ TESTS=callback \
 	tail \
 	remove \
 	testfilter \
-	tcpserver
+	tcpserver \
+	unixserver
 
 check_PROGRAMS=callback \
 	file \
@@ -28,7 +29,8 @@ check_PROGRAMS=callback \
 	tail \
 	remove \
 	testfilter \
-	tcpserver
+	tcpserver \
+	unixserver
 
 check_HEADERS=examples.h	
 	
@@ -45,4 +47,6 @@ tail_SOURCES=tail.cpp
 remove_SOURCES=remove.cpp
 testfilter_SOURCES=testfilter.cpp
 tcpserver_SOURCES=tcpserver.cpp
+unixserver_SOURCES=unixserver.cpp
+
 
