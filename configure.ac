@@ -6,6 +6,7 @@ AC_CONFIG_FILES([liblogger.pc])
 
 LT_INIT
 AM_INIT_AUTOMAKE([foreign])
+AM_SILENT_RULES([yes])
 
 AC_PROG_CXX
 AC_PROG_LIBTOOL
