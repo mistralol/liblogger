@@ -32,8 +32,7 @@ namespace liblogger
 		private:
 			static std::list<std::shared_ptr<ILogger> > m_loggers;
 			static std::list<std::shared_ptr<ILogFilter> > m_filters;
-			static pthread_mutex_t m_mutex;
-			static bool m_locked;
+			static LogMutex m_mutex;
 			static bool m_catcherrors;
 			static LogType m_Type;
 

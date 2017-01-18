@@ -10,8 +10,7 @@ namespace liblogger {
 
 std::list<std::shared_ptr<ILogger> > LogManager::m_loggers;
 std::list<std::shared_ptr<ILogFilter> > LogManager::m_filters;
-pthread_mutex_t LogManager::m_mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
-bool LogManager::m_locked = false;
+LogMutex LogManager::m_mutex = LogMutex();
 bool LogManager::m_catcherrors = false;
 uint64_t LogManager::m_TotalMessages = 0;
 uint64_t LogManager::m_TotalDroppedMessages = 0;
@@ -139,16 +138,12 @@ std::string LogManager::GetVersion()
 
 void LogManager::Lock()
 {
-	if (pthread_mutex_lock(&m_mutex) < 0)
-		throw(LogException("pthread_mutex_lock failed"));
-	m_locked = true;
+	m_mutex.Lock();
 }
 
 void LogManager::Unlock()
 {
-	m_locked = false;
-	if (pthread_mutex_unlock(&m_mutex) < 0)
-		throw(LogException("pthread_mutex_unlock failed"));
+	m_mutex.Unlock();
 }
 
 void LogManager::SetLevel(LogType Type)

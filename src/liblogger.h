@@ -4,6 +4,7 @@
 #define LIBLOGGER_H
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdarg.h>
 #include <stdint.h>
 #include <unistd.h>
@@ -16,6 +17,7 @@
 #include <exception>
 
 #include <liblogger/LogException.h>
+#include <liblogger/LogMutex.h>
 #include <liblogger/LogType.h>
 #include <liblogger/ILogger.h>
 #include <liblogger/ILogFilter.h>
