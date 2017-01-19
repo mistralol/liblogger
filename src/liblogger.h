@@ -11,6 +11,7 @@
 #include <pthread.h>
 
 #include <string>
+#include <string.h>
 #include <list>
 #include <map>
 #include <memory>
