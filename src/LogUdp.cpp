@@ -59,7 +59,7 @@ LogUdp::LogUdp(const std::string addr, int port) :
 	memset(&dest, 0, sizeof(dest));
 	dest.sin_family = AF_INET;
 	dest.sin_addr.s_addr = inet_addr(addr.c_str());
-	dest.sin_port = htons(port);
+	dest.sin_port = htons(m_port);
 	
 	int ret = connect(m_fd, (struct sockaddr *) &dest, destlen);
 	if (ret < 0)
