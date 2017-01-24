@@ -51,4 +51,4 @@ tests/remove
 tests/testfilter
 tests/tcpserver
 tests/unixserver
-
+tests/streamlogger

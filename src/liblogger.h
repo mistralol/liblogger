@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <pthread.h>
 
+#include <sstream>
 #include <string>
 #include <string.h>
 #include <list>
@@ -44,6 +45,11 @@
 #include <liblogger/LogFilterDup.h>
 #include <liblogger/LogFilterCallBack.h>
 #include <liblogger/LogFilterContains.h>
+
+#include <liblogger/StreamLogger.h>
+
+//For CPP StreamLogger
+#define LOGGER liblogger::GetStreamLogger()
 
 #endif
 

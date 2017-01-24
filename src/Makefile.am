@@ -19,7 +19,8 @@ liblogger_la_SOURCES=Logger.cpp LogException.cpp LogManager.cpp LogType.cpp LogM
 		LogFilterType.cpp \
 		LogFilterDup.cpp \
 		LogFilterCallBack.cpp \
-		LogFilterContains.cpp
+		LogFilterContains.cpp \
+		StreamLogger.cpp
 
 
 include_HEADERS=liblogger.h
