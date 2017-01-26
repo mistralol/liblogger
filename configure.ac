@@ -21,6 +21,7 @@ AC_CHECK_HEADERS(syslog.h)
 AC_CHECK_HEADERS([arpa/inet.h])
 AC_CHECK_HEADERS([netinet/in.h])
 AC_CHECK_HEADERS([sys/socket.h])
+AC_CHECK_HEADERS([sys/eventfd.h])
 AC_CHECK_HEADER_STDBOOL()
 
 AC_TYPE_SSIZE_T
