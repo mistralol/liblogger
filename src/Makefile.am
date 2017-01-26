@@ -46,6 +46,8 @@ otherinclude_HEADERS=liblogger/LogManager.h liblogger/LogException.h liblogger/L
 	liblogger/LogFilterType.h \
 	liblogger/LogFilterDup.h \
 	liblogger/LogFilterCallBack.h \
-	liblogger/LogFilterContains.h
+	liblogger/LogFilterContains.h \
+	liblogger/LogMutex.h \
+	liblogger/StreamLogger.h
 
 
