@@ -24,7 +24,7 @@ namespace liblogger
 			std::list<int> m_list;  //List of connected clients
 			std::string m_path;
 			int m_acceptfd;		//Socket we listen on
-			int m_eventfd;		//Event fd to exit again
+			int m_ctlfd[2];		//Event fd to exit again
 			bool m_running;
 	};
 };

@@ -6,8 +6,8 @@
 
 #include <poll.h>
 #include <arpa/inet.h>
+#include <sys/types.h>
 #include <sys/socket.h>
-#include <sys/eventfd.h>
 
 #include "liblogger.h"
 
@@ -17,9 +17,10 @@ namespace liblogger
 LogTcpServer::LogTcpServer(int port) :
 	m_port(port),
 	m_acceptfd(-1),
-	m_eventfd(-1),
 	m_running(false)
 {
+	m_ctlfd[0] = -1;
+	m_ctlfd[1] = -1;
 	try
 	{
 		if (pthread_mutex_init(&m_mutex, NULL) != 0)
@@ -32,12 +33,11 @@ LogTcpServer::LogTcpServer(int port) :
 			ss << "Cannot create socket: " << strerror(errno);
 			throw(LogException(ss.str()));
 		}
-	
-		m_eventfd = eventfd(0, 0);
-		if (m_eventfd < 0)
+
+		if (socketpair(AF_LOCAL, SOCK_STREAM, 0, m_ctlfd) != 0)	
 		{
 			std::stringstream ss;
-			ss << "Cannot create eventfd: " << strerror(errno);
+			ss << "Cannot create ctlfd: " << strerror(errno);
 			throw(LogException(ss.str()));
 		}
 
@@ -57,18 +57,18 @@ LogTcpServer::LogTcpServer(int port) :
 		memset(&serv_addr, 0, sizeof(serv_addr));
 		serv_addr.sin_family = AF_INET;
 		serv_addr.sin_addr.s_addr = INADDR_ANY;
-		serv_addr.sin_port = htons(port);
+		serv_addr.sin_port = htons(m_port);
 		if (bind(m_acceptfd, (struct sockaddr *) &serv_addr, sockaddr_len) < 0)
 		{
 			std::stringstream ss;
-			ss << "Cannot bind to port: " << port << " error: " << strerror(errno);
+			ss << "Cannot bind to port: " << m_port << " error: " << strerror(errno);
 			throw(LogException(ss.str()));
 		}
 		
 		if (listen(m_acceptfd, 15) < 0)
 		{
 			std::stringstream ss;
-			ss << "Cannot listen on port: " << port << " error: " << strerror(errno);
+			ss << "Cannot listen on port: " << m_port << " error: " << strerror(errno);
 			throw(LogException(ss.str()));
 		}
 
@@ -91,9 +91,17 @@ LogTcpServer::LogTcpServer(int port) :
 			}
 		}
 
-		if (m_eventfd >= 0)
+		if (m_ctlfd[0] >= 0)
 		{
-			if (close(m_eventfd) < 0)
+			if (close(m_ctlfd[0]) < 0)
+			{
+				abort();
+			}
+		}
+
+		if (m_ctlfd[1] >= 0)
+		{
+			if (close(m_ctlfd[1]) < 0)
 			{
 				abort();
 			}
@@ -108,9 +116,9 @@ LogTcpServer::~LogTcpServer()
 {
 	if (m_running)
 	{
-		uint64_t value = 1;
+		char value = 'Q';
 		
-		if (write(m_eventfd, &value, sizeof(value)) != sizeof(value))
+		if (write(m_ctlfd[1], &value, sizeof(value)) != sizeof(value))
 		{
 			abort();
 		}
@@ -141,9 +149,17 @@ LogTcpServer::~LogTcpServer()
 		}
 	}
 	
-	if (m_eventfd >= 0)
+	if (m_ctlfd[0] >= 0)
 	{
-		if (close(m_eventfd) < 0)
+		if (close(m_ctlfd[0]) < 0)
+		{
+			abort();
+		}
+	}
+
+	if (m_ctlfd[1] >= 0)
+	{
+		if (close(m_ctlfd[1]) < 0)
 		{
 			abort();
 		}
@@ -264,7 +280,7 @@ void *LogTcpServer::Run(void *arg)
 		fds[0].events = POLLIN;
 		fds[0].revents = 0;
 		
-		fds[1].fd = self->m_eventfd;
+		fds[1].fd = self->m_ctlfd[0];
 		fds[1].events = POLLIN;
 		fds[1].revents = 0;
 	

@@ -8,8 +8,8 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/un.h>
+#include <sys/types.h>
 #include <sys/socket.h>
-#include <sys/eventfd.h>
 
 #include "liblogger.h"
 
@@ -19,9 +19,11 @@ namespace liblogger
 LogUnixServer::LogUnixServer(const std::string &path) :
 	m_path(path),
 	m_acceptfd(-1),
-	m_eventfd(-1),
 	m_running(false)
 {
+	m_ctlfd[0] = -1;
+	m_ctlfd[1] = -1;
+
 	try
 	{
 		if (pthread_mutex_init(&m_mutex, NULL) != 0)
@@ -35,12 +37,11 @@ LogUnixServer::LogUnixServer(const std::string &path) :
 			ss << "Cannot create socket: " << strerror(errno);
 			throw(LogException(ss.str()));
 		}
-	
-		m_eventfd = eventfd(0, 0);
-		if (m_eventfd < 0)
+
+		if (socketpair(AF_LOCAL, SOCK_STREAM, 0, m_ctlfd) != 0)	
 		{
 			std::stringstream ss;
-			ss << "Cannot create eventfd: " << strerror(errno);
+			ss << "Cannot create ctlfd: " << strerror(errno);
 			throw(LogException(ss.str()));
 		}
 
@@ -84,9 +85,17 @@ LogUnixServer::LogUnixServer(const std::string &path) :
 			}
 		}
 
-		if (m_eventfd >= 0)
+		if (m_ctlfd[0] >= 0)
 		{
-			if (close(m_eventfd) < 0)
+			if (close(m_ctlfd[0]) < 0)
+			{
+				abort();
+			}
+		}
+
+		if (m_ctlfd[1] >= 0)
+		{
+			if (close(m_ctlfd[1]) < 0)
 			{
 				abort();
 			}
@@ -101,9 +110,9 @@ LogUnixServer::~LogUnixServer()
 {
 	if (m_running)
 	{
-		uint64_t value = 1;
+		char value = 'Q';
 		
-		if (write(m_eventfd, &value, sizeof(value)) != sizeof(value))
+		if (write(m_ctlfd[1], &value, sizeof(value)) != sizeof(value))
 		{
 			abort();
 		}
@@ -134,9 +143,17 @@ LogUnixServer::~LogUnixServer()
 		}
 	}
 	
-	if (m_eventfd >= 0)
+	if (m_ctlfd[0] >= 0)
 	{
-		if (close(m_eventfd) < 0)
+		if (close(m_ctlfd[0]) < 0)
+		{
+			abort();
+		}
+	}
+
+	if (m_ctlfd[1] >= 0)
+	{
+		if (close(m_ctlfd[1]) < 0)
 		{
 			abort();
 		}
@@ -257,7 +274,7 @@ void *LogUnixServer::Run(void *arg)
 		fds[0].events = POLLIN;
 		fds[0].revents = 0;
 		
-		fds[1].fd = self->m_eventfd;
+		fds[1].fd = self->m_ctlfd[0];
 		fds[1].events = POLLIN;
 		fds[1].revents = 0;
 	
