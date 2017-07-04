@@ -27,9 +27,7 @@ LogFile::~LogFile()
 	{
 		if (fclose(m_fp) < 0)
 		{
-			std::stringstream ss;
-			ss << "Cannot close file: '" << m_fname << "' error: " << strerror(errno);
-			throw(LogException(ss.str()));
+			abort();
 		}
 	}
 }

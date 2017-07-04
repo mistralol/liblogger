@@ -27,9 +27,7 @@ LogPipe::~LogPipe()
 	{
 		if (pclose(m_fp) < 0)
 		{
-			std::stringstream ss;
-			ss << "failed to close pipe '" << m_command << "' error:" << strerror(errno);
-			throw(LogException(ss.str()));
+			abort();
 		}
 	}
 }

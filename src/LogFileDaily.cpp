@@ -27,9 +27,7 @@ LogFileDaily::~LogFileDaily()
 	{
 		if (fclose(m_fp) < 0)
 		{
-			std::stringstream ss;
-			ss << "Cannot close file: '" << m_fname << "' error: " << strerror(errno);
-			throw(LogException(ss.str()));
+			abort();
 		}
 	}
 }
@@ -169,52 +167,49 @@ void LogFileDaily::RemoveOld()
 
 	while(1)
 	{
-		struct dirent info;
-		struct dirent *info2;
-		int ret = readdir_r(d, &info, &info2);
-		if (ret == 0)
+		errno = 0;
+		struct dirent *info = readdir(d);
+		if (info == NULL)
+			break; //EOF
+		std::string fname = info->d_name;
+		std::string prefix = m_prefix + "-";
+		if (fname.compare(0, prefix.length(), prefix) == 0)
 		{
-			if (info2 == NULL)
-				break; //EOF
-			std::string fname = info2->d_name;
-			std::string prefix = m_prefix + "-";
-			if (fname.compare(0, prefix.length(), prefix) == 0)
+			//Parse and comare time.
+			int time = 0;
+			if (sscanf(&fname.c_str()[prefix.length()], "%d", &time) == 1)
 			{
-				//Parse and comare time.
-				int time = 0;
-				if (sscanf(&fname.c_str()[prefix.length()], "%d", &time) == 1)
+				if (time < oldest)
 				{
-					if (time < oldest)
+					std::string file = m_dir + "/" + fname;
+					if (unlink(file.c_str()) < 0)
 					{
-						std::string file = m_dir + "/" + fname;
-						if (unlink(file.c_str()) < 0)
-						{
-							std::stringstream ss;
-							ss << "Unable to remove file '" << file.c_str() << "' error:" << strerror(errno);
-							throw(LogException(ss.str()));	
-						}
+						std::stringstream ss;
+						ss << "Unable to remove file '" << file.c_str() << "' error:" << strerror(errno);
+						throw(LogException(ss.str()));	
 					}
 				}
-				else
-				{
-					//Cant parse
-				}
 			}
-			continue; //Not for us to ignore
-		}
-		else
-		{
-			std::stringstream ss;
-			ss << "readdir failed in '" << m_dir << "' error:" << strerror(errno);
-			if (closedir(d) < 0)
+			else
 			{
-				std::stringstream ss2;
-				ss2 << "Unable to close directory '" << m_dir << "' error:" << strerror(errno);
-				throw(LogException(ss2.str()));
+				//Cant parse
 			}
-			throw(LogException(ss.str()));
 		}
 	}
+
+	if (errno != 0)
+	{
+		std::stringstream ss;
+		ss << "readdir failed in '" << m_dir << "' error:" << strerror(errno);
+		if (closedir(d) < 0)
+		{
+			std::stringstream ss2;
+			ss2 << "Unable to close directory '" << m_dir << "' error:" << strerror(errno);
+			throw(LogException(ss2.str()));
+		}
+		throw(LogException(ss.str()));
+	}
+
 
 	
 	if (closedir(d) < 0)
