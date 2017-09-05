@@ -44,6 +44,7 @@ otherinclude_HEADERS=liblogger/LogManager.h liblogger/LogException.h liblogger/L
 	liblogger/LogUdp.h \
 	liblogger/LogTcpServer.h \
 	liblogger/LogUnixServer.h \
+	liblogger/LogMQ.h \
 	liblogger/LogTail.h \
 	liblogger/LogTailIdx.h \
 	liblogger/LogFilterType.h \
