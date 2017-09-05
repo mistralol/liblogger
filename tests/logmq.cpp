@@ -19,6 +19,8 @@ int main(int argc, char ** argv)
 	if (pid < 0)
 		abort();
 
+	sleep(2); //Poor workaround for race if we start before the child
+
 	LogManager::Add(new LogMQ());
 
 	examples();
