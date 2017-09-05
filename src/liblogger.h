@@ -47,6 +47,7 @@
 #include <liblogger/LogFilterType.h>
 #include <liblogger/LogFilterDup.h>
 #include <liblogger/LogFilterCallBack.h>
+#include <liblogger/LogFilterFunction.h>
 #include <liblogger/LogFilterContains.h>
 
 #include <liblogger/StreamLogger.h>
