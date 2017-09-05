@@ -13,6 +13,9 @@
 *.a
 *~
 
+#IDE's
+.vscode
+
 #Some test files for code coverage
 *.gcda
 *.gcno
@@ -51,4 +54,6 @@ tests/remove
 tests/testfilter
 tests/tcpserver
 tests/unixserver
+tests/logmq
 tests/streamlogger
+logmq/logmq

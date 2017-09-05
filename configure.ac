@@ -32,6 +32,8 @@ AC_CHECK_FUNCS([socket])
 AC_CHECK_FUNCS([strerror])
 AC_CHECK_FUNCS([localtime_r])
 
+AC_CHECK_LIB(rt, mq_open)
+
 AX_CXX_COMPILE_STDCXX_11(noext, optional)
 
 m4_ifdef([AX_COMPILER_FLAGS],
@@ -61,5 +63,6 @@ m4_ifdef([AX_CODE_COVERAGE],
 	]
 )
 
-AC_OUTPUT(Makefile src/Makefile tests/Makefile)
+AC_OUTPUT(Makefile src/Makefile logmq/Makefile tests/Makefile
+)
 

@@ -14,6 +14,7 @@ liblogger_la_SOURCES=Logger.cpp LogException.cpp LogManager.cpp LogType.cpp LogM
 		LogUdp.cpp \
 		LogTcpServer.cpp \
 		LogUnixServer.cpp \
+		LogMQ.cpp \
 		LogTail.cpp  \
 		LogTailIdx.cpp \
 		LogFilterType.cpp \

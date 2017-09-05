@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <mqueue.h>
 
 #include <sstream>
 #include <string>
@@ -40,6 +41,7 @@
 #include <liblogger/LogUdp.h>
 #include <liblogger/LogTcpServer.h>
 #include <liblogger/LogUnixServer.h>
+#include <liblogger/LogMQ.h>
 
 #include <liblogger/LogFilterType.h>
 #include <liblogger/LogFilterDup.h>

@@ -16,6 +16,7 @@ TESTS=callback \
 	testfilter \
 	tcpserver \
 	unixserver \
+	logmq \
 	streamlogger
 
 check_PROGRAMS=callback \
@@ -32,6 +33,7 @@ check_PROGRAMS=callback \
 	testfilter \
 	tcpserver \
 	unixserver \
+	logmq \
 	streamlogger
 
 check_HEADERS=examples.h	
@@ -50,5 +52,6 @@ remove_SOURCES=remove.cpp
 testfilter_SOURCES=testfilter.cpp
 tcpserver_SOURCES=tcpserver.cpp
 unixserver_SOURCES=unixserver.cpp
+logmq_SOURCES=logmq.cpp
 streamlogger_SOURCES=streamlogger.cpp
 
