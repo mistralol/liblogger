@@ -3,6 +3,7 @@ AM_CPPFLAGS=-I../src/
 LDADD=../src/.libs/liblogger.a -lpthread
 
 TESTS=callback \
+	function \
 	file \
 	filehourly \
 	filedaily \
@@ -20,6 +21,7 @@ TESTS=callback \
 	streamlogger
 
 check_PROGRAMS=callback \
+	function \
 	file \
 	filehourly \
 	filedaily \
@@ -39,6 +41,7 @@ check_PROGRAMS=callback \
 check_HEADERS=examples.h	
 	
 callback_SOURCES=callback.cpp
+function_SOURCES=function.cpp
 file_SOURCES=file.cpp
 filehourly_SOURCES=filehourly.cpp
 filedaily_SOURCES=filedaily.cpp

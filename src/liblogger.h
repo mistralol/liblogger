@@ -36,6 +36,7 @@
 #include <liblogger/LogFileDaily.h>
 #include <liblogger/LogPipe.h>
 #include <liblogger/LogCallBack.h>
+#include <liblogger/LogFunction.h>
 #include <liblogger/LogTail.h>
 #include <liblogger/LogTailIdx.h>
 #include <liblogger/LogUdp.h>

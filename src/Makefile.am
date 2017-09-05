@@ -3,6 +3,7 @@ lib_LTLIBRARIES=liblogger.la
 
 liblogger_la_SOURCES=Logger.cpp LogException.cpp LogManager.cpp LogType.cpp LogManagerScopedLock.cpp \
 		LogCallBack.cpp \
+		LogFunction.cpp \
 		LogFile.cpp \
 		LogFileHourly.cpp \
 		LogFileDaily.cpp \
@@ -30,6 +31,7 @@ otherincludedir = $(includedir)/liblogger
 
 otherinclude_HEADERS=liblogger/LogManager.h liblogger/LogException.h liblogger/LogManagerScopedLock.h liblogger/ILogger.h liblogger/ILogFilter.h liblogger/LogType.h \
 	liblogger/LogCallBack.h \
+	liblogger/LogFunction.h \
 	liblogger/LogFile.h \
 	liblogger/LogFileHourly.h \
 	liblogger/LogFileDaily.h \

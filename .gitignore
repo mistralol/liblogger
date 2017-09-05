@@ -41,6 +41,7 @@ liblogger.pc
 *.log
 *.trs
 tests/callback
+tests/function
 tests/file
 tests/filehourly
 tests/filedaily
