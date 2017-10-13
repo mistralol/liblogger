@@ -17,7 +17,6 @@ TESTS=callback \
 	testfilter \
 	tcpserver \
 	unixserver \
-	logmq \
 	streamlogger
 
 check_PROGRAMS=callback \
