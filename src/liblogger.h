@@ -18,6 +18,7 @@
 #include <map>
 #include <memory>
 #include <exception>
+#include <functional>
 
 #include <liblogger/LogException.h>
 #include <liblogger/LogMutex.h>
