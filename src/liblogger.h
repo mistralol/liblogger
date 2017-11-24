@@ -51,6 +51,9 @@
 #include <liblogger/LogFilterFunction.h>
 #include <liblogger/LogFilterContains.h>
 
+#include <liblogger/Trace.h>
+#include <liblogger/TraceLock.h>
+
 #include <liblogger/StreamLogger.h>
 
 //For CPP StreamLogger
