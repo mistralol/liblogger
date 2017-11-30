@@ -12,17 +12,17 @@ LogSyslog::LogSyslog()
 	openlog(NULL, LOG_PID, 0);
 }
 
-LogSyslog::LogSyslog(const std::string ident)
+LogSyslog::LogSyslog(const std::string &ident)
 {
 	openlog(ident.c_str(), LOG_PID, 0);
 }
 
-LogSyslog::LogSyslog(const std::string ident, int options)
+LogSyslog::LogSyslog(const std::string &ident, int options)
 {
 	openlog(ident.c_str(), options, 0);
 }
 
-LogSyslog::LogSyslog(const std::string ident, int options, int facility)
+LogSyslog::LogSyslog(const std::string &ident, int options, int facility)
 {
 	openlog(ident.c_str(), options, facility);
 }
@@ -38,25 +38,22 @@ LogSyslog::~LogSyslog()
 	closelog();
 }
 
-void LogSyslog::GetName(std::string *str)
-{
-	*str = "Syslog";
+std::string LogSyslog::GetName() const {
+	return "Syslog";
 }
 
-void LogSyslog::GetDesc(std::string *str)
-{
-	*str = "Logs to Syslog";
+std::string LogSyslog::GetDesc() const {
+	return "Logs to a syslog";
 }
 
-void LogSyslog::Log(const LogType Type, const std::string &str)
-{
+void LogSyslog::Log(const LogType Type, const std::string &str) {
 	switch(Type)
 	{
 		case LOGGER_DEBUG:
 			syslog(LOG_DEBUG, "%s", str.c_str());
 			break;
 		case LOGGER_INFO:
-			syslog(LOG_INFO, "%s", str.c_str());			
+			syslog(LOG_INFO, "%s", str.c_str());
 			break;
 		case LOGGER_NOTICE:
 			syslog(LOG_NOTICE, "%s", str.c_str());

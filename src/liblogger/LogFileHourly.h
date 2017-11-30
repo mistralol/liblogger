@@ -4,16 +4,16 @@ namespace liblogger
 	class LogFileHourly : public ILogger
 	{
 		public:
-			LogFileHourly(const std::string dir, const std::string prefix, int maxage);
+			LogFileHourly(const std::string &dir, const std::string &prefix, int maxage);
 			virtual ~LogFileHourly();
-		
-			void GetName(std::string *str);
-			void GetDesc(std::string *str);
+
+			std::string GetName() const;
+			std::string GetDesc() const;
 			void Log(const LogType Type, const std::string &str);
 			void Rotate();
-		
+
 		protected:
-			void RemoveOld();	
+			void RemoveOld();
 
 		private:
 			std::string m_dir;

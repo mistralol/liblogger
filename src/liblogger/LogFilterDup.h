@@ -9,7 +9,7 @@ namespace liblogger
 			virtual ~LogFilterDup();
 
 			virtual bool Filter(const LogType Type, const std::string &str);
-			
+
 		private:
 			bool m_busy;
 			std::string m_last;

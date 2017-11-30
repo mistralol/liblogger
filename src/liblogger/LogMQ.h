@@ -7,8 +7,8 @@ namespace liblogger
 			LogMQ(const std::string &qname = "/liblogger");
 			virtual ~LogMQ();
 
-			void GetName(std::string *str);
-			void GetDesc(std::string *str);
+			std::string GetName() const;
+			std::string GetDesc() const;
 			void Log(const LogType Type, const std::string &str);
 
 		private:

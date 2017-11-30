@@ -20,12 +20,12 @@ LogMQ::~LogMQ() {
 		abort();
 }
 
-void LogMQ::GetName(std::string *str) {
-	*str = "LogMQ";
+std::string LogMQ::GetName() const {
+	return "LogMQ";
 }
 
-void LogMQ::GetDesc(std::string *str) {
-	*str = "Logs to a POSIX Message Queue";
+std::string LogMQ::GetDesc() const {
+	return "Logs to a POSIX Message Queue";
 }
 
 void LogMQ::Log(const LogType Type, const std::string &str) {
@@ -34,7 +34,7 @@ void LogMQ::Log(const LogType Type, const std::string &str) {
 	if (!buf) {
 		throw(LogException("LogMQ::Log Malloc Failed"));
 	}
-	
+
 	if (mq_send(m_id, buf, len, 0) < 0) {
 		std::stringstream ss;
 		ss << "LogMQ::Log failed to write to queue: " << m_QName << "' error: " << strerror(errno);

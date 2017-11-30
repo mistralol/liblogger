@@ -9,7 +9,7 @@
 namespace liblogger
 {
 
-LogPipe::LogPipe(const std::string command) :
+LogPipe::LogPipe(const std::string &command) :
 	m_command(command)
 {
 	m_fp = popen(m_command.c_str(), "w");
@@ -21,8 +21,7 @@ LogPipe::LogPipe(const std::string command) :
 	}
 }
 
-LogPipe::~LogPipe()
-{
+LogPipe::~LogPipe() {
 	if (m_fp != NULL)
 	{
 		if (pclose(m_fp) < 0)
@@ -32,25 +31,22 @@ LogPipe::~LogPipe()
 	}
 }
 
-void LogPipe::GetName(std::string *str)
-{
-	*str = "File";
+std::string LogPipe::GetName() const {
+	return "Pipe";
 }
 
-void LogPipe::GetDesc(std::string *str)
-{
-	*str = "Logs to a File";
+std::string LogPipe::GetDesc() const {
+	return "Logs to a pipe";
 }
 
-void LogPipe::Log(const LogType Type, const std::string &str)
-{
+void LogPipe::Log(const LogType Type, const std::string &str) {
 	if (m_fp == NULL)
-		return;
-		
+		throw(LogException("Pipe not open"));
+
 	time_t current = time(NULL);
 	struct tm timeinfo;
 	char buf[128];
-	
+
 	localtime_r(&current, &timeinfo);
 	if (strftime(buf, sizeof(buf), "%F %T", &timeinfo) == 0)
 		abort(); //Bug

@@ -8,18 +8,15 @@
 namespace liblogger
 {
 
-void LogStdout::GetName(std::string *str)
-{
-	*str = "Stdout";
+std::string LogStdout::GetName() const {
+	return "Stdout";
 }
 
-void LogStdout::GetDesc(std::string *str)
-{
-	*str = "Logs to Stdout";
+std::string LogStdout::GetDesc() const {
+	return "Logs to a Stdout";
 }
 
-void LogStdout::Log(const LogType Type, const std::string &str)
-{
+void LogStdout::Log(const LogType Type, const std::string &str) {
 	time_t current = time(NULL);
 	struct tm timeinfo;
 	char buf[128];

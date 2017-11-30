@@ -6,16 +6,16 @@ namespace liblogger
 		public:
 			LogTcpServer(int port);
 			virtual ~LogTcpServer();
-		
-			void GetName(std::string *str);
-			void GetDesc(std::string *str);
+
+			std::string GetName() const;
+			std::string GetDesc() const;
 			void Log(const LogType Type, const std::string &str);
 			void Rotate();
 
 		private:
 			void Lock();
 			void Unlock();
-		
+
 			static void *Run(void *);
 
 		private:

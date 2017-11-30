@@ -8,22 +8,19 @@
 namespace liblogger
 {
 
-void LogStderr::GetName(std::string *str)
-{
-	*str = "Stderr";
+std::string LogStderr::GetName() const {
+	return "Stderr";
 }
 
-void LogStderr::GetDesc(std::string *str)
-{
-	*str = "Logs to Stderr";
+std::string LogStderr::GetDesc() const {
+	return "Logs to a stderr";
 }
 
-void LogStderr::Log(const LogType Type, const std::string &str)
-{
+void LogStderr::Log(const LogType Type, const std::string &str) {
 	time_t current = time(NULL);
 	struct tm timeinfo;
 	char buf[128];
-	
+
 	localtime_r(&current, &timeinfo);
 	if (strftime(buf, sizeof(buf), "%F %T", &timeinfo) == 0)
 		abort(); //Bug

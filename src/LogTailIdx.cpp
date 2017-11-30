@@ -13,18 +13,15 @@ LogTailIdx::LogTailIdx(size_t length) :
 
 }
 
-void LogTailIdx::GetName(std::string *str)
-{
-	*str = "TailIdx";
+std::string LogTailIdx::GetName() const {
+	return "Tail";
 }
 
-void LogTailIdx::GetDesc(std::string *str)
-{
-	*str = "Keeps Last 'n' Messages in memory";
+std::string LogTailIdx::GetDesc() const {
+	return "Keeps Last 'n' Messages in memory";
 }
 
-void LogTailIdx::Log(const LogType Type, const std::string &str)
-{
+void LogTailIdx::Log(const LogType Type, const std::string &str) {
 	LogManagerScopedLock lock = LogManagerScopedLock();
 	m_data.insert(std::make_pair(m_current, str));
 	m_current++;
@@ -34,8 +31,7 @@ void LogTailIdx::Log(const LogType Type, const std::string &str)
 	}
 }
 
-std::list<std::string> LogTailIdx::GetList()
-{
+std::list<std::string> LogTailIdx::GetList() {
 	LogManagerScopedLock lock = LogManagerScopedLock();
 	std::map<uint64_t, std::string>::iterator it = m_data.begin();
 	std::list<std::string> lst;
@@ -46,29 +42,27 @@ std::list<std::string> LogTailIdx::GetList()
 	return lst;
 }
 
-std::list<std::string> LogTailIdx::GetList(uint64_t *idx)
-{
+std::list<std::string> LogTailIdx::GetList(uint64_t *idx) {
 	return LogTailIdx::GetList(idx, 0);
 }
 
-std::list<std::string> LogTailIdx::GetList(uint64_t *idx, int maxitems)
-{
+std::list<std::string> LogTailIdx::GetList(uint64_t *idx, int maxitems) {
 	LogManagerScopedLock lock = LogManagerScopedLock();
 	std::list<std::string> lst;
-	
+
 	if (*idx > m_current)
 	{
 		*idx = m_current;
 		return lst;
 	}
-		
+
 	//skip idx to first item in case it has not been used in a while
 	std::map<uint64_t, std::string>::iterator it = m_data.begin();
 	if (*idx < it->first)
 	{
 		*idx = it->first;
 	}
-	
+
 	int count = 0;
 	for(uint64_t i=*idx;i<m_current;i++)
 	{

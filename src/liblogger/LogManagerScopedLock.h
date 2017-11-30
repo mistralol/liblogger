@@ -13,6 +13,3 @@ namespace liblogger
 			bool m_locked;
 	};
 };
-
-
-

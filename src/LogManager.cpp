@@ -21,7 +21,7 @@ LogType LogManager::m_Type = LOGGER_DEBUG;
 void LogManager::Send(const LogType Type, const std::string &str)
 {
 	LogManagerScopedLock lock = LogManagerScopedLock();
-	
+
 	try
 	{
 		m_TotalMessages++;
@@ -32,20 +32,17 @@ void LogManager::Send(const LogType Type, const std::string &str)
 		}
 
 		//Filter any messages
-		for(std::list<std::shared_ptr<ILogFilter> >::iterator it = m_filters.begin(); it != m_filters.end(); it++)
-		{
-			bool filter = (*it)->Filter(Type, str);
-			if (filter)
-			{
+		for(auto &it : m_filters) {
+			bool filter = it->Filter(Type, str);
+			if (filter) {
 				m_TotalFiltered++;
 				return;
 			}
 		}
 
 		//Send to all loggers
-		for( std::list<std::shared_ptr<ILogger> >::iterator it = m_loggers.begin(); it != m_loggers.end(); it++)
-		{
-			(*it)->Log(Type, str);
+		for(auto &it : m_loggers) {
+			it->Log(Type, str);
 		}
 	}
 	catch(LogException &ex)
@@ -61,8 +58,9 @@ void LogManager::Send(const LogType Type, const std::string &str)
 void LogManager::Rotate()
 {
 	LogManagerScopedLock lock = LogManagerScopedLock();
-	for( std::list<std::shared_ptr<ILogger> >::iterator it = m_loggers.begin(); it != m_loggers.end(); it++)
-		(*it)->Rotate();
+	for(auto &it : m_loggers) {
+		it->Rotate();
+	}
 }
 
 void LogManager::Add(std::shared_ptr<ILogger> Log)
@@ -71,8 +69,7 @@ void LogManager::Add(std::shared_ptr<ILogger> Log)
 	m_loggers.push_back(Log);
 	lock.Unlock();
 #ifdef DEBUG
-	std::string str;
-	Log->GetName(&str);
+	std::string str = Log->GetName();
 	Logger(LOGGER_DEBUG, "Added Logger: %s", str.c_str());
 #endif
 }
@@ -85,8 +82,7 @@ void LogManager::Remove(std::shared_ptr<ILogger> Log)
 	if (size == m_loggers.size())
 		throw(LogException("LogManager::Remove cannot find logging module"));
 #ifdef DEBUG
-	std::string str;
-	Log->GetName(&str);
+	std::string str = Log->GetName();
 	Logger(LOGGER_DEBUG, "Removed Logger: %s", str.c_str());
 #endif
 }
@@ -160,11 +156,9 @@ LogType LogManager::GetLevel()
 void LogManager::PrintAll()
 {
 	LogManagerScopedLock lock = LogManagerScopedLock();
-	for( std::list<std::shared_ptr<ILogger> >::iterator it = m_loggers.begin(); it != m_loggers.end(); it++)
-	{
-		std::string Name, Desc;
-		(*it)->GetName(&Name);
-		(*it)->GetDesc(&Desc);
+	for(const auto &it : m_loggers) {
+		std::string Name = it->GetName();
+		std::string Desc = it->GetDesc();
 		LogInfo("LogName: '%s' Desc: '%s'", Name.c_str(), Desc.c_str());
 	}
 }

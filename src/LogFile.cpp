@@ -9,7 +9,7 @@
 namespace liblogger
 {
 
-LogFile::LogFile(const std::string fname) :
+LogFile::LogFile(const std::string &fname) :
 	m_fname(fname)
 {
 	m_fp = fopen(m_fname.c_str(), "a");
@@ -32,25 +32,23 @@ LogFile::~LogFile()
 	}
 }
 
-void LogFile::GetName(std::string *str)
-{
-	*str = "File";
+std::string LogFile::GetName() const {
+	return "File";
 }
 
-void LogFile::GetDesc(std::string *str)
-{
-	*str = "Logs to a File";
+std::string LogFile::GetDesc() const {
+	return "Logs to a file";
 }
 
 void LogFile::Log(const LogType Type, const std::string &str)
 {
 	if (m_fp == NULL)
 		return;
-	
+
 	time_t current = time(NULL);
 	struct tm timeinfo;
 	char buf[128];
-	
+
 	localtime_r(&current, &timeinfo);
 	if (strftime(buf, sizeof(buf), "%F %T", &timeinfo) == 0)
 	{
@@ -69,7 +67,7 @@ void LogFile::Log(const LogType Type, const std::string &str)
 	{
 		std::stringstream ss;
 		ss << "failed to fflush to file '" << m_fname.c_str() << "' error:" << strerror(errno);
-		throw(LogException(ss.str()));	
+		throw(LogException(ss.str()));
 	}
 }
 
@@ -81,7 +79,7 @@ void LogFile::Rotate()
 		{
 			std::stringstream ss;
 			ss << "failed to close to file '" << m_fname.c_str() << "' error:" << strerror(errno);
-			throw(LogException(ss.str()));	
+			throw(LogException(ss.str()));
 		}
 	}
 

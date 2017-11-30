@@ -12,7 +12,7 @@
 namespace liblogger
 {
 
-LogUdp::LogUdp(const std::string addr, int port) :
+LogUdp::LogUdp(const std::string &addr, uint16_t port) :
 	m_addr(addr),
 	m_port(port),
 	m_fd(-1),
@@ -25,9 +25,9 @@ LogUdp::LogUdp(const std::string addr, int port) :
 		ss << "Cannot create socket: " << strerror(errno);
 		throw(LogException(ss.str()));
 	}
-	
+
 	int localport = 1025;
-	
+
 	bool bound = false;
 	for(int i = 0 ;i<50;i++)
 	{
@@ -44,7 +44,7 @@ LogUdp::LogUdp(const std::string addr, int port) :
 			break;
 		}
 	}
-	
+
 	if (bound == false)
 	{
 		if (close(m_fd) < 0)
@@ -52,14 +52,14 @@ LogUdp::LogUdp(const std::string addr, int port) :
 		m_fd = -1;
 		throw(LogException("Unable to bind socket"));
 	}
-	
+
 	struct sockaddr_in dest;
 	socklen_t destlen = sizeof(dest);
 	memset(&dest, 0, sizeof(dest));
 	dest.sin_family = AF_INET;
 	dest.sin_addr.s_addr = inet_addr(addr.c_str());
 	dest.sin_port = htons(m_port);
-	
+
 	int ret = connect(m_fd, (struct sockaddr *) &dest, destlen);
 	if (ret < 0)
 	{
@@ -78,27 +78,24 @@ LogUdp::~LogUdp()
 		close(m_fd);
 }
 
-void LogUdp::GetName(std::string *str)
-{
-	*str = "Udp4";
+std::string LogUdp::GetName() const {
+	return "UDP";
 }
 
-void LogUdp::GetDesc(std::string *str)
-{
-	*str = "Logs to a Udp port";
+std::string LogUdp::GetDesc() const {
+	return "Logs to UDP Port";
 }
 
-void LogUdp::Log(const LogType Type, const std::string &str)
-{
+void LogUdp::Log(const LogType Type, const std::string &str) {
 	char *msg = NULL;
-	
+
 	time_t current = time(NULL);
 	struct tm timeinfo;
 	char buf[128];
 
 	localtime_r(&current, &timeinfo);
 	strftime(buf, sizeof(buf), "%F %T", &timeinfo);
-	
+
 	if (asprintf(&msg, "%s - %s [PID: %d] - %s\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
 	{
 		std::stringstream ss;

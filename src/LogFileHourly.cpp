@@ -11,7 +11,7 @@
 namespace liblogger
 {
 
-LogFileHourly::LogFileHourly(const std::string dir, const std::string prefix, int maxage) :
+LogFileHourly::LogFileHourly(const std::string &dir, const std::string &prefix, int maxage) :
 	m_dir(dir),
 	m_prefix(prefix),
 	m_maxage(maxage),
@@ -32,30 +32,22 @@ LogFileHourly::~LogFileHourly()
 	}
 }
 
-void LogFileHourly::GetName(std::string *str)
-{
-	*str = "FileHourly";
+std::string LogFileHourly::GetName() const {
+	return "FileHourly";
 }
 
-void LogFileHourly::GetDesc(std::string *str)
-{
-	*str = "Logs to a new file evey hour";
+std::string LogFileHourly::GetDesc() const {
+	return "Logs to a file hourly";
 }
 
-void LogFileHourly::Log(const LogType Type, const std::string &str)
-{
-	if (m_fp == NULL)
-	{
-
-	}
-	
+void LogFileHourly::Log(const LogType Type, const std::string &str) {
 	time_t current = time(NULL);
 	struct tm timeinfo;
 	char fname[1024];
 	char buf[128];
 
 	localtime_r(&current, &timeinfo);
-	
+
 	if (strftime(fname, sizeof(fname), "%Y%m%d%H", &timeinfo) == 0)
 	{
 		std::stringstream ss;
@@ -63,7 +55,7 @@ void LogFileHourly::Log(const LogType Type, const std::string &str)
 		throw(LogException(ss.str()));
 	}
 	const std::string cname = m_dir + "/" + m_prefix + "-" + fname;
-	
+
 	if (m_fname != cname)
 	{
 		if (m_fp != NULL)
@@ -79,7 +71,7 @@ void LogFileHourly::Log(const LogType Type, const std::string &str)
 		m_fname = cname;
 		RemoveOld();
 	}
-	
+
 	if (m_fp == NULL)
 	{
 		m_fp = fopen(m_fname.c_str(), "a");
@@ -90,7 +82,7 @@ void LogFileHourly::Log(const LogType Type, const std::string &str)
 			throw(LogException(ss.str()));
 		}
 	}
-	
+
 	if (strftime(buf, sizeof(buf), "%F %T", &timeinfo) == 0)
 	{
 		std::stringstream ss;
@@ -108,7 +100,7 @@ void LogFileHourly::Log(const LogType Type, const std::string &str)
 	{
 		std::stringstream ss;
 		ss << "failed to fflush to file '" << m_fname << "' error:" << strerror(errno);
-		throw(LogException(ss.str()));	
+		throw(LogException(ss.str()));
 	}
 }
 
@@ -138,15 +130,15 @@ void LogFileHourly::RemoveOld()
 	{
 		std::stringstream ss;
 		ss << "Unable to open directory '" << m_dir << "' error:" << strerror(errno);
-		throw(LogException(ss.str()));	
+		throw(LogException(ss.str()));
 	}
-	
+
 	time_t current = time(NULL);
 	struct tm timeinfo;
 	char strtime[1024];
 
 	localtime_r(&current, &timeinfo);
-	
+
 	if (strftime(strtime, sizeof(strtime), "%Y%m%d%H", &timeinfo) == 0)
 	{
 		std::stringstream ss;
@@ -159,7 +151,7 @@ void LogFileHourly::RemoveOld()
 		}
 		throw(LogException(ss.str()));
 	}
-	
+
 	int oldest = 0;
 	if (sscanf(strtime, "%d", &oldest) != 1)
 		abort();
@@ -186,7 +178,7 @@ void LogFileHourly::RemoveOld()
 					{
 						std::stringstream ss;
 						ss << "Unable to remove file '" << file.c_str() << "' error:" << strerror(errno);
-						throw(LogException(ss.str()));	
+						throw(LogException(ss.str()));
 					}
 				}
 			}
@@ -209,12 +201,12 @@ void LogFileHourly::RemoveOld()
 		}
 		throw(LogException(ss.str()));
 	}
-	
+
 	if (closedir(d) < 0)
 	{
 		std::stringstream ss;
 		ss << "Unable to close directory '" << m_dir << "' error:" << strerror(errno);
-		throw(LogException(ss.str()));	
+		throw(LogException(ss.str()));
 	}
 }
 

@@ -25,7 +25,7 @@ LogTcpServer::LogTcpServer(int port) :
 	{
 		if (pthread_mutex_init(&m_mutex, NULL) != 0)
 			abort();
-	
+
 		m_acceptfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 		if (m_acceptfd < 0)
 		{
@@ -34,7 +34,7 @@ LogTcpServer::LogTcpServer(int port) :
 			throw(LogException(ss.str()));
 		}
 
-		if (socketpair(AF_LOCAL, SOCK_STREAM, 0, m_ctlfd) != 0)	
+		if (socketpair(AF_LOCAL, SOCK_STREAM, 0, m_ctlfd) != 0)
 		{
 			std::stringstream ss;
 			ss << "Cannot create ctlfd: " << strerror(errno);
@@ -64,7 +64,7 @@ LogTcpServer::LogTcpServer(int port) :
 			ss << "Cannot bind to port: " << m_port << " error: " << strerror(errno);
 			throw(LogException(ss.str()));
 		}
-		
+
 		if (listen(m_acceptfd, 15) < 0)
 		{
 			std::stringstream ss;
@@ -117,12 +117,12 @@ LogTcpServer::~LogTcpServer()
 	if (m_running)
 	{
 		char value = 'Q';
-		
+
 		if (write(m_ctlfd[1], &value, sizeof(value)) != sizeof(value))
 		{
 			abort();
 		}
-	
+
 		void *ret = NULL;
 		if (pthread_join(m_thread, &ret) != 0)
 		{
@@ -132,7 +132,7 @@ LogTcpServer::~LogTcpServer()
 	}
 
 	//No background thread. So no locking required from this point on
-	
+
 	while(!m_list.empty())
 	{
 		int fd = m_list.front();
@@ -148,7 +148,7 @@ LogTcpServer::~LogTcpServer()
 			abort();
 		}
 	}
-	
+
 	if (m_ctlfd[0] >= 0)
 	{
 		if (close(m_ctlfd[0]) < 0)
@@ -164,33 +164,30 @@ LogTcpServer::~LogTcpServer()
 			abort();
 		}
 	}
-	
+
 	if (pthread_mutex_destroy(&m_mutex) != 0)
 		abort();
 
 }
 
-void LogTcpServer::GetName(std::string *str)
-{
-	*str = "TcpServer";
+std::string LogTcpServer::GetName() const {
+	return "TcpServer";
 }
 
-void LogTcpServer::GetDesc(std::string *str)
-{
-	*str = "Logs to client when they connect to the tcp port";
+std::string LogTcpServer::GetDesc() const {
+	return "Logs to client when they connect to the tcp port";
 }
 
-void LogTcpServer::Log(const LogType Type, const std::string &str)
-{
+void LogTcpServer::Log(const LogType Type, const std::string &str) {
 	char *msg = NULL;
-	
+
 	time_t current = time(NULL);
 	struct tm timeinfo;
 	char buf[128];
 
 	localtime_r(&current, &timeinfo);
 	strftime(buf, sizeof(buf), "%F %T", &timeinfo);
-	
+
 	if (asprintf(&msg, "%s - %s [PID: %d] - %s\n", buf, LogTypeToStr(Type).c_str(), getpid(), str.c_str()) < 0)
 	{
 		std::stringstream ss;
@@ -201,9 +198,9 @@ void LogTcpServer::Log(const LogType Type, const std::string &str)
 	{
 		std::list<int> broken;
 		int len = strlen(msg);
-		
+
 		Lock();
-		
+
 		for(auto fd : m_list)
 		{
 			ssize_t offset = 0;
@@ -233,7 +230,7 @@ void LogTcpServer::Log(const LogType Type, const std::string &str)
 				broken.push_back(fd);
 			}
 		}
-		
+
 		//Kick any broken clients
 		for(auto fd : broken)
 		{
@@ -243,7 +240,7 @@ void LogTcpServer::Log(const LogType Type, const std::string &str)
 			}
 			m_list.remove(fd);
 		}
-		
+
 		Unlock();
 
 	}
@@ -275,15 +272,15 @@ void *LogTcpServer::Run(void *arg)
 	while(busy)
 	{
 		struct pollfd fds[2];
-		
+
 		fds[0].fd = self->m_acceptfd;
 		fds[0].events = POLLIN;
 		fds[0].revents = 0;
-		
+
 		fds[1].fd = self->m_ctlfd[0];
 		fds[1].events = POLLIN;
 		fds[1].revents = 0;
-	
+
 		int ret = poll(fds, 2, 0);
 		if (ret < 0)
 		{
@@ -293,10 +290,10 @@ void *LogTcpServer::Run(void *arg)
 					abort();
 			}
 		}
-		
+
 		if ( (fds[0].revents & POLLIN) ) {
 			//Accept
-			struct sockaddr_in addr;			
+			struct sockaddr_in addr;
 			socklen_t addr_len = sizeof(addr);
 			int nclient = accept(self->m_acceptfd, (struct sockaddr *) &addr, &addr_len);
 			if (nclient >= 0)
@@ -307,13 +304,13 @@ void *LogTcpServer::Run(void *arg)
 			}
 		}
 
-		//Check eventfd and exit if it has data		
+		//Check eventfd and exit if it has data
 		if ( (fds[1].revents & POLLIN) ) {
 			busy = false;
 		}
-		
+
 	}
-	
+
 	return NULL;
 }
 

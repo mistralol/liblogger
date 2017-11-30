@@ -12,18 +12,15 @@ LogFunction::LogFunction(std::function<void(const LogType, const std::string &)>
 
 }
 
-void LogFunction::GetName(std::string *str)
-{
-	*str = "Function";
+std::string LogFunction::GetName() const {
+	return "Function";
 }
 
-void LogFunction::GetDesc(std::string *str)
-{
-	*str = "Logs to a function / callback";
+std::string LogFunction::GetDesc() const {
+	return "Logs to a function / callback";
 }
 
-void LogFunction::Log(const LogType Type, const std::string &str)
-{
+void LogFunction::Log(const LogType Type, const std::string &str) {
 	m_function(Type, str);
 }
 

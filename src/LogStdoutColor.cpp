@@ -16,22 +16,19 @@
 namespace liblogger
 {
 
-void LogStdoutColor::GetName(std::string *str)
-{
-	*str = "StdoutColor";
+std::string LogStdoutColor::GetName() const {
+	return "StdoutColor";
 }
 
-void LogStdoutColor::GetDesc(std::string *str)
-{
-	*str = "Logs to Stdout Colored";
+std::string LogStdoutColor::GetDesc() const {
+	return "Logs to a stdout in colour";
 }
 
-void LogStdoutColor::Log(const LogType Type, const std::string &str)
-{
+void LogStdoutColor::Log(const LogType Type, const std::string &str) {
 	time_t current = time(NULL);
 	struct tm timeinfo;
 	char buf[128];
-	
+
 	localtime_r(&current, &timeinfo);
 	if (strftime(buf, sizeof(buf), "%F %T", &timeinfo) == 0)
 		abort(); //Bug
@@ -105,7 +102,7 @@ void LogStdoutColor::Log(const LogType Type, const std::string &str)
 		default:
 			abort(); //Should be unreachable
 			break;
-		
+
 	}
 
 	if (fflush(stdout) < 0)

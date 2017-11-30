@@ -12,26 +12,22 @@ LogTail::LogTail(size_t length) :
 
 }
 
-void LogTail::GetName(std::string *str)
-{
-	*str = "Tail";
+std::string LogTail::GetName() const {
+	return "Tail";
 }
 
-void LogTail::GetDesc(std::string *str)
-{
-	*str = "Keeps Last 'n' Messages in memory";
+std::string LogTail::GetDesc() const {
+	return "Keeps Last 'n' Messages in memory";
 }
 
-void LogTail::Log(const LogType Type, const std::string &str)
-{
+void LogTail::Log(const LogType Type, const std::string &str) {
 	LogManagerScopedLock lock = LogManagerScopedLock();
 	if (m_data.size() >= m_length)
 		m_data.pop_front();
 	m_data.push_back(str);
 }
 
-std::string LogTail::GetData()
-{
+std::string LogTail::GetData() {
 	LogManagerScopedLock lock = LogManagerScopedLock();
 	std::list<std::string>::iterator it = m_data.begin();
 	std::stringstream ss;
@@ -43,8 +39,7 @@ std::string LogTail::GetData()
 	return ss.str();
 }
 
-std::list<std::string> LogTail::GetList()
-{
+std::list<std::string> LogTail::GetList() {
 	LogManagerScopedLock lock = LogManagerScopedLock();
 	std::list<std::string> lst = m_data;
 	return lst;

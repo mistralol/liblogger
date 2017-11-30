@@ -13,9 +13,5 @@ namespace liblogger
 		LOGGER_EMERG,
 	};
 
-	const std::string LogTypeToStr(LogType Type);
+	const std::string& LogTypeToStr(LogType Type);
 };
-
-
-
-

@@ -19,13 +19,13 @@ namespace liblogger
 			static void FilterRemoveAll();
 
 			static std::string GetVersion();
-		
+
 			static void Lock();
 			static void Unlock();
-			
+
 			static void SetLevel(LogType Type);
 			static LogType GetLevel();
-			
+
 			static void SetCatchErrors(bool enable);
 			static bool GetCatchErrors();
 
