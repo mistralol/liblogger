@@ -40,7 +40,6 @@ LogUdp::LogUdp(const std::string addr, int port) :
 
 		if (bind(m_fd, (struct sockaddr *) &local, locallen) == 0)
 		{
-			localport += i;
 			bound = true;
 			break;
 		}
