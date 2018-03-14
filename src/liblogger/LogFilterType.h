@@ -2,7 +2,7 @@
 
 namespace liblogger
 {
-	class LogFilterType
+	class LogFilterType : public ILogFilter
 	{
 		public:
 			LogFilterType(LogType type);
