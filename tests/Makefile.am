@@ -17,7 +17,8 @@ TESTS=callback \
 	testfilter \
 	tcpserver \
 	unixserver \
-	streamlogger
+	streamlogger \
+	benchmark
 
 check_PROGRAMS=callback \
 	function \
@@ -35,10 +36,11 @@ check_PROGRAMS=callback \
 	tcpserver \
 	unixserver \
 	logmq \
-	streamlogger
+	streamlogger \
+	benchmark
 
-check_HEADERS=examples.h	
-	
+check_HEADERS=examples.h
+
 callback_SOURCES=callback.cpp
 function_SOURCES=function.cpp
 file_SOURCES=file.cpp
@@ -56,4 +58,5 @@ tcpserver_SOURCES=tcpserver.cpp
 unixserver_SOURCES=unixserver.cpp
 logmq_SOURCES=logmq.cpp
 streamlogger_SOURCES=streamlogger.cpp
+benchmark_SOURCES=benchmark.cpp
 

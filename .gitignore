@@ -57,4 +57,5 @@ tests/tcpserver
 tests/unixserver
 tests/logmq
 tests/streamlogger
+tests/benchmark
 logmq/logmq
