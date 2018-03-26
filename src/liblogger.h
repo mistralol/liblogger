@@ -19,6 +19,7 @@
 #include <memory>
 #include <exception>
 #include <functional>
+#include <regex>
 
 #include <liblogger/LogException.h>
 #include <liblogger/LogMutex.h>
@@ -50,6 +51,7 @@
 #include <liblogger/LogFilterCallBack.h>
 #include <liblogger/LogFilterFunction.h>
 #include <liblogger/LogFilterContains.h>
+#include <liblogger/LogFilterRegex.h>
 
 #include <liblogger/Trace.h>
 #include <liblogger/TraceLock.h>

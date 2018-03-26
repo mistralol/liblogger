@@ -132,6 +132,14 @@ int main(int argc, char ** argv)
     printf("\n");
 	LogManager::FilterRemoveAll();
 
+    LogManager::FilterAdd(std::make_shared<LogFilterRegex>("/somefilter/"));
+    printf("        LogFilterRegex: %d\n", Benchmark(count));
+    printf("LogFilterRegexStreamer: %d\n", BenchmarkStreamer(count));
+    printf("   LogFilterRegexTrace: %d\n", BenchmarkTrace(count / trace, trace));
+    printf("\n");
+	LogManager::FilterRemoveAll();
+
+
 
 	return 0;
 }
