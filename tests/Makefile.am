@@ -18,7 +18,8 @@ TESTS=callback \
 	tcpserver \
 	unixserver \
 	streamlogger \
-	benchmark
+	benchmark \
+	proxylogger
 
 check_PROGRAMS=callback \
 	function \
@@ -37,7 +38,8 @@ check_PROGRAMS=callback \
 	unixserver \
 	logmq \
 	streamlogger \
-	benchmark
+	benchmark \
+	proxylogger
 
 check_HEADERS=examples.h
 
@@ -59,4 +61,4 @@ unixserver_SOURCES=unixserver.cpp
 logmq_SOURCES=logmq.cpp
 streamlogger_SOURCES=streamlogger.cpp
 benchmark_SOURCES=benchmark.cpp
-
+proxylogger_SOURCES=proxylogger.cpp

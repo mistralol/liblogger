@@ -55,6 +55,7 @@
 
 #include <liblogger/Trace.h>
 #include <liblogger/TraceLock.h>
+#include <liblogger/ProxyLogger.h>
 
 #include <liblogger/StreamLogger.h>
 

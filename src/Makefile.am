@@ -24,6 +24,7 @@ liblogger_la_SOURCES=Logger.cpp LogException.cpp LogManager.cpp LogType.cpp LogM
 		LogFilterFunction.cpp \
 		LogFilterContains.cpp \
 		LogFilterRegex.cpp \
+		ProxyLogger.cpp \
 		Trace.cpp \
 		TraceLock.cpp \
 		StreamLogger.cpp
@@ -60,6 +61,7 @@ otherinclude_HEADERS=liblogger/LogManager.h liblogger/LogException.h liblogger/L
 	liblogger/LogMutex.h \
 	liblogger/Trace.h \
 	liblogger/TraceLock.h \
+	liblogger/ProxyLogger.h \
 	liblogger/StreamLogger.h
 
 
