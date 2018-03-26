@@ -6,6 +6,7 @@ static std::string Types[] {
 	"DEBG",
 	"INFO",
 	"NOTI",
+	"WARN",
 	"ERRO",
 	"CRIT",
 	"ALER",
