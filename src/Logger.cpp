@@ -15,7 +15,7 @@ void Logger(const LogType Type, const std::string &str)
 void Logger(LogType Type, const char *fmt, ...)
 {
 	char *tmp = 0;
-	
+
 	va_list ap;
 	va_start(ap, fmt);
 	int res = vasprintf(&tmp, fmt, ap);
@@ -30,7 +30,7 @@ void Logger(LogType Type, const char *fmt, ...)
 void Logger(const char *fmt, ...)
 {
 	char *tmp = 0;
-	
+
 	va_list ap;
 	va_start(ap, fmt);
 	int res = vasprintf(&tmp, fmt, ap);
@@ -50,7 +50,7 @@ void Logger(const std::string &str)
 void LogDebug(const char *fmt, ...)
 {
 	char *tmp = 0;
-	
+
 	va_list ap;
 	va_start(ap, fmt);
 	int res = vasprintf(&tmp, fmt, ap);
@@ -70,7 +70,7 @@ void LogDebug(const std::string &str)
 void LogInfo(const char *fmt, ...)
 {
 	char *tmp = 0;
-	
+
 	va_list ap;
 	va_start(ap, fmt);
 	int res = vasprintf(&tmp, fmt, ap);
@@ -90,7 +90,7 @@ void LogInfo(const std::string &str)
 void LogNotice(const char *fmt, ...)
 {
 	char *tmp = 0;
-	
+
 	va_list ap;
 	va_start(ap, fmt);
 	int res = vasprintf(&tmp, fmt, ap);
@@ -110,7 +110,7 @@ void LogNotice(const std::string &str)
 void LogWarning(const char *fmt, ...)
 {
 	char *tmp = 0;
-	
+
 	va_list ap;
 	va_start(ap, fmt);
 	int res = vasprintf(&tmp, fmt, ap);
@@ -130,7 +130,7 @@ void LogWarning(const std::string &str)
 void LogError(const char *fmt, ...)
 {
 	char *tmp = 0;
-	
+
 	va_list ap;
 	va_start(ap, fmt);
 	int res = vasprintf(&tmp, fmt, ap);
@@ -150,7 +150,7 @@ void LogError(const std::string &str)
 void LogCritical(const char *fmt, ...)
 {
 	char *tmp = 0;
-	
+
 	va_list ap;
 	va_start(ap, fmt);
 	int res = vasprintf(&tmp, fmt, ap);
@@ -170,7 +170,7 @@ void LogCritical(const std::string &str)
 void LogAlert(const char *fmt, ...)
 {
 	char *tmp = 0;
-	
+
 	va_list ap;
 	va_start(ap, fmt);
 	int res = vasprintf(&tmp, fmt, ap);
@@ -190,7 +190,7 @@ void LogAlert(const std::string &str)
 void LogEmergency(const char *fmt, ...)
 {
 	char *tmp = 0;
-	
+
 	va_list ap;
 	va_start(ap, fmt);
 	int res = vasprintf(&tmp, fmt, ap);
