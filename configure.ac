@@ -34,7 +34,7 @@ AC_CHECK_FUNCS([localtime_r])
 
 AC_CHECK_LIB(rt, mq_open)
 
-AX_CXX_COMPILE_STDCXX_11(noext, optional)
+AX_CXX_COMPILE_STDCXX_11(noext, mandatory)
 
 m4_ifdef([AX_COMPILER_FLAGS],
 	[
