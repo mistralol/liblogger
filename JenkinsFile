@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Build Release') {
             steps {
-                dir('build-debug') {
+                dir('build-release') {
                     sh('cmake -DCMAKE_BUILD_TYPE=Release ../')
                     sh('make')
                 }
