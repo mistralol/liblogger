@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Prep') {
             steps {
-                sh('mkdir -o build-debug build-release')
+                sh('mkdir -p build-debug build-release')
             }
         }
         stage('Build Debug') {
