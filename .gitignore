@@ -19,5 +19,5 @@
 #Some test files for code coverage
 *.gcda
 *.gcno
-
+build
 build-*
