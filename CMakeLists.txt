@@ -61,6 +61,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${FLAGS}")
 
 find_package(Threads REQUIRED)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 
 add_subdirectory(src)
