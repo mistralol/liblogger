@@ -9,7 +9,7 @@ pipeline {
         stage('Build Debug') {
             steps {
                 dir('build-debug') {
-                    sh('cmake -DCMAKE_BUILD_TYPE=Debug ../')
+                    sh('cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_CPPCHECK=ON ../')
                     sh('make')
                 }
             }
