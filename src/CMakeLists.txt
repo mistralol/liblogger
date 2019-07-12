@@ -39,6 +39,8 @@ set_target_properties(loggerstatic PROPERTIES OUTPUT_NAME logger)
 
 target_include_directories(logger PUBLIC .)
 target_include_directories(loggerstatic PUBLIC .)
+target_compile_options(logger PRIVATE -fPIC)
+target_compile_options(loggerstatic PRIVATE -fPIC)
 target_link_libraries(logger PRIVATE -lpthread -lrt)
 target_link_libraries(loggerstatic PUBLIC -lpthread -lrt)
 
