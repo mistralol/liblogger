@@ -4,6 +4,8 @@ pipeline {
         stage('Prep') {
             steps {
                 sh('mkdir -p build-debug build-release')
+		sh('rm -rf build-debug/*')
+		sh('rm -rf build-release/*')
             }
         }
         stage('Build Debug') {
