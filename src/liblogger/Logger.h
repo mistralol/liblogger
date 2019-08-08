@@ -26,6 +26,16 @@ namespace liblogger
 	extern void LogEmergency(const char *fmt, ...) __attribute__ ((format (printf, 1, 2)));
 	extern void LogEmergency(const std::string &str);
 
+#define LogOnce(str, ...) {\
+	static bool HasLogged = false; \
+	if (!HasLogged) { \
+		HasLogged = true; \
+		Logger(str, __VA_ARGS__); \
+	} \
+}
+
+
+
 	/* Ask for log rotation */
 	extern void LoggerRotate();
 };

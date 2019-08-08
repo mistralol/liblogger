@@ -24,6 +24,10 @@ add_executable(logmqtest logmq.cpp)
 target_link_libraries(logmqtest logger)
 #add_test(logmq "./logmqtest")
 
+add_executable(logonce logonce.cpp)
+target_link_libraries(logonce logger)
+add_test(logonce "./logonce")
+
 add_executable(pipe pipe.cpp)
 target_link_libraries(pipe logger)
 add_test(pipe "./pipe")
