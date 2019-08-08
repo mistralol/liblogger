@@ -28,6 +28,10 @@ add_executable(logonce logonce.cpp)
 target_link_libraries(logonce logger)
 add_test(logonce "./logonce")
 
+add_executable(logperiod logperiod.cpp)
+target_link_libraries(logperiod logger)
+add_test(logperiod "./logperiod")
+
 add_executable(pipe pipe.cpp)
 target_link_libraries(pipe logger)
 add_test(pipe "./pipe")

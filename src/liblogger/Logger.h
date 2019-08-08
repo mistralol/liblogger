@@ -34,6 +34,15 @@ namespace liblogger
 	} \
 }
 
+#define LogPeriod(interval, str, ...) {\
+	static struct timespec LogLast = {0, 0}; \
+	struct timespec LogNow; \
+	if (clock_gettime(CLOCK_MONOTONIC, &LogNow) != 0) abort(); \
+	if (LogNow.tv_sec > LogLast.tv_sec + interval) {\
+		LogLast = LogNow; \
+		Logger(str, __VA_ARGS__); \
+	} \
+}
 
 
 	/* Ask for log rotation */
