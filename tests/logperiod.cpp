@@ -5,7 +5,7 @@
 using namespace liblogger;
 
 
-int main(int argc, char ** argv)
+int main(int argc, char **argv)
 {
 	LogManager::Add(new LogStdout());
 
@@ -13,7 +13,7 @@ int main(int argc, char ** argv)
 
     for(int i =0;i<15;i++) {
         usleep(100000); //Sleep 100ms
-        LogPeriod(1, "Test %d", i);
+        LogPeriod(1, LOGGER_INFO, "Test %d", i);
     }
 
 	LogManager::RemoveAll();

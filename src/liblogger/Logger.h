@@ -26,21 +26,21 @@ namespace liblogger
 	extern void LogEmergency(const char *fmt, ...) __attribute__ ((format (printf, 1, 2)));
 	extern void LogEmergency(const std::string &str);
 
-#define LogOnce(str, ...) {\
+#define LogOnce(type, str, ...) {\
 	static bool HasLogged = false; \
 	if (!HasLogged) { \
 		HasLogged = true; \
-		Logger(str, __VA_ARGS__); \
+		Logger(type, str, __VA_ARGS__); \
 	} \
 }
 
-#define LogPeriod(interval, str, ...) {\
+#define LogPeriod(interval, type, str, ...) {\
 	static struct timespec LogLast = {0, 0}; \
 	struct timespec LogNow; \
 	if (clock_gettime(CLOCK_MONOTONIC, &LogNow) != 0) abort(); \
 	if (LogNow.tv_sec > LogLast.tv_sec + interval) {\
 		LogLast = LogNow; \
-		Logger(str, __VA_ARGS__); \
+		Logger(type, str, __VA_ARGS__); \
 	} \
 }
 
