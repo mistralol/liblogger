@@ -14,7 +14,6 @@ set(LOGGER_SOURCES
     LogFunction.cpp
     Logger.cpp
     LogManager.cpp
-    LogManagerScopedLock.cpp
     LogMQ.cpp
     LogPipe.cpp
     LogStderr.cpp
